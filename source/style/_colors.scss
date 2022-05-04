@@ -1,0 +1,28 @@
+@use 'palette';
+@use 'sass:color';
+
+
+@function color($color-name) {
+  @return map-get(palette.$palette, $color-name);
+}
+
+
+$primary-bg: color('pale-blue-lily');
+$primary-fg: color('blue-whale');
+
+$header-bg: color('ebony-clay');
+$header-fg: color('pale-blue-lily');
+
+$active-link: darken(color('white-soapstone'), 5);
+
+$navigation-icon: color.adjust($header-fg, $alpha: -0.25);
+$navigation-icon-active: color.adjust($active-link, $alpha: -0.25);
+
+$config-select-tab-bg: color('white-soapstone');
+$config-select-tab-fg: color('davys-grey');
+
+$card-bg: color('white-soapstone');
+
+
+$footer-bg: color('ebony-clay');
+$footer-fg: lighten(color('davys-grey'), 10);

@@ -1,0 +1,19 @@
+@font-face {
+  font-family: 'Rubik';
+  src: url('asset/font/rubik/rubik.ttf');
+  font-weight: 300 900;
+}
+
+@font-face {
+  font-family: 'Roboto Mono';
+  src: url('asset/font/roboto_mono/roboto_mono.ttf');
+  font-weight: 100 700;
+}
+
+
+$sans-font: 'Rubik', 'sans-serif';
+$mono-font: 'Roboto-Mono', 'monospace';
+
+$primary-weight: 425;
+$semibold-weight: 460;
+$important-weight: 550;
