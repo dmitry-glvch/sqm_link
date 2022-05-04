@@ -4,6 +4,14 @@ const HtmlPlugin = require('html-webpack-plugin')
 const VuePlugin= require('vue-loader').VueLoaderPlugin
 
 
+const makeAliases = (relativePaths) =>
+    Object.fromEntries(
+        relativePaths.map((relativePath) => [
+          path.basename(relativePath),
+          path.resolve(__dirname, relativePath)
+        ] ))
+
+
 module.exports = (_, argv) => ({
 
   entry: {
@@ -16,11 +24,15 @@ module.exports = (_, argv) => ({
 
   resolve: {
     alias: {
-      asset: path.resolve(__dirname, 'asset'),
-      style: path.resolve(__dirname, 'source/style'),
-      page:  path.resolve(__dirname, 'source/page')
+      ...makeAliases ([
+        'asset',
+        'source/style',
+        'source/page',
+        'source/component'
+      ])
     }
   },
+
 
   devtool: argv.mode === 'development' ?
       'eval-source-map' :
@@ -37,18 +49,12 @@ module.exports = (_, argv) => ({
 
 
   plugins: [
-    // new HtmlPlugin({
-    //   template: 'source/index.html'
-    // }),
-    // new HtmlPlugin({
-    //   template: 'source/page/main.html',
-    //   filename: 'page/main.html'
-    // }),
     new HtmlPlugin({
-      template: 'source/index2.html'
+      template: 'source/index.html'
     }),
     new VuePlugin()
   ],
+
 
   module: {
     rules: [
@@ -59,14 +65,8 @@ module.exports = (_, argv) => ({
       },
 
       {
-        test: /\.html$/i,
-        use: 'html-loader'
-      },
-
-      {
         test: /\.s[ac]ss$/i,
         use: [
-          // 'style-loader',
           'vue-style-loader',
           'css-loader',
           'sass-loader'
