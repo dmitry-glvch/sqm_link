@@ -15,16 +15,20 @@ $outline: color('vivid-mantis');
 $header-bg: color('ebony-clay');
 $header-fg: color('pale-blue-lily');
 
-$active-link: darken(color('white-soapstone'), 5);
+$link-bg: $header-bg;
+$link-fg: $header-fg;
+$link-active-fg: darken($header-fg, 25);
+$link-hover-bg: lighten($header-bg, 5);
+$link-hover-fg: darken(color('white-soapstone'), 5);
 
 $navigation-icon: color.adjust($header-fg, $alpha: -0.25);
-$navigation-icon-active: color.adjust($active-link, $alpha: -0.25);
+$navigation-icon-active: color.adjust($link-active-fg, $alpha: -0.25);
+$navigation-icon-hover: color.adjust($link-hover-fg, $alpha: -0.25);
 
 $config-select-tab-bg: color('white-soapstone');
 $config-select-tab-fg: color('davys-grey');
 
 $card-bg: color('white-soapstone');
-
 
 $footer-bg: color('ebony-clay');
 $footer-fg: lighten(color('davys-grey'), 10);

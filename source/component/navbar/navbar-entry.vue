@@ -1,7 +1,7 @@
 <template>
-<li class="navbar__entry">
+<li :class="{ 'navbar__entry': true, 'active': active }">
 
-  <a class="link" :href="href">
+  <router-link :to="href" class="link">
 
     <span :class="[
       'icon',
@@ -9,16 +9,19 @@
       isPresent(label) ? 'labelPadding' : ''
     ]" v-if="isPresent(icon)"></span>
 
-    <span  class="label" v-if="isPresent(label)">
+    <span class="label" v-if="isPresent(label)">
       {{ label }}
     </span>
 
-  </a>
+  </router-link>
 
   <div class="dropdown" v-if="sublinks !== undefined && sublinks.length > 0">
     <ul>
 
-      <li class="navbar__entry" v-for="link in sublinks">
+      <li :class="{
+        'navbar__entry': true,
+        'active': active
+      }" v-for="link in sublinks">
         <a class="link" :href="link.href">
 
           <span :class="[
@@ -44,37 +47,46 @@
 
 <script setup>
 
-defineProps({
-  href: String,
-  label: String,
-  icon: String,
+const props = defineProps({
+  href:     String,
+  label:    String,
+  icon:     String,
+  active:   Boolean,
   sublinks: Array
 })
 
 const isPresent = (stringPropValue) =>
     typeof stringPropValue === 'string' &&
     stringPropValue.length > 0
-
+ 
 </script>
 
 
 <style lang="scss">
 @use 'style/colors.scss';
+@use 'style/sizes.scss';
 
 
 .navbar__entry {
 
   display: inline-block;
   margin: 0;
+  padding: 0;
   position: relative;
-  height: fit-content;
 
-  a {
-    color: colors.$header-fg;
+  .link {
+    display: inline-block;
     text-decoration: none;
-    &:link {
-      color: colors.$header-fg;
-      text-decoration: none;
+    padding: 16px 20px;
+  }
+
+  .label, .icon::before {
+    color: colors.$link-fg;
+  }
+
+  &.active {
+    .label, .icon::before {
+      color: colors.$link-active-fg;
     }
   }
 
@@ -95,8 +107,6 @@ const isPresent = (stringPropValue) =>
     padding-right: 8px;
   }
 
-  padding: 16px 20px;
-
   text-align: center;
   font-size: 1.1rem;
 
@@ -104,28 +114,27 @@ const isPresent = (stringPropValue) =>
   transition: background-color 0.5s ease;
 
   &:hover {
-    background-color: lighten(colors.$header-bg, 5);
-      cursor: pointer;
+    background-color: colors.$link-hover-bg;
+    cursor: pointer;
+    .label, .icon::before {
+      color: colors.$link-hover-fg;
+    }
   }
 
   &:hover .dropdown,
   &:focus-within .dropdown,
   .dropdown:hover,
   .dropdown:focus {
-    visibility: visible;
-    opacity: 1;
     display: flex;
     flex-direction: column;
-    width: fit-content;
   }
 
   .dropdown {
+    
+    display: none;
 
     position: absolute;
-    margin-top: 1rem;
     left: 0;
-
-    display: none;
 
     ul {
       padding: 0;
@@ -136,19 +145,33 @@ const isPresent = (stringPropValue) =>
       clear: both;
       display: block;
       white-space:nowrap;
-      padding: 10px 20px;
+
+      .link {
+        padding: 10px 20px;
+      }
+
       text-align: left;
       background-color: colors.$header-bg;
-      
-      &:hover {
-        background-color: lighten(colors.$header-bg, 5);
-        cursor: pointer;
-      }
+
       &:last-of-type {
-        border-bottom-left-radius: 4px;
-        border-bottom-right-radius: 4px;
+        border-bottom-left-radius: sizes.$default-border-radius;
+        border-bottom-right-radius: sizes.$default-border-radius;
       }
-      
+
+      .label, .icon::before {
+        color: colors.$link-fg;
+      }
+
+      &:hover {
+        background-color: colors.$link-hover-bg;
+        color: colors.$link-hover-fg;
+        cursor: pointer;
+
+        .label, .icon::before {
+          color: colors.$link-hover-fg;
+        }
+      }
+
     }
   }
 

@@ -6,7 +6,8 @@
     </header>
 
     <main class="main">
-      <sqm-configurator/>
+      <!-- <sqm-configurator/> -->
+      <router-view/>
     </main>
 
     <footer class="footer">
@@ -18,7 +19,7 @@
 
 
 <script setup>
-import SqmNavbar from 'component/sqm-navbar.vue'
+import SqmNavbar from 'component/navbar/sqm-navbar.vue'
 import SqmConfigurator from 'component/sqm-configurator.vue';
 import SqmFooter from 'component/sqm-footer.vue'
 </script>

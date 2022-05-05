@@ -26,6 +26,7 @@ module.exports = (_, argv) => ({
     alias: {
       ...makeAliases ([
         'asset',
+        'asset/config',
         'source/style',
         'source/page',
         'source/component'
