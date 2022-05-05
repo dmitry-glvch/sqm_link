@@ -1,59 +1,112 @@
 <template>
-  <div class="container">
+  <div class="container navbar-container">
 
-    <h1>SQM Link</h1>
+    <h1 class="title">SQM Link</h1>
 
-    <nav class="nav">
-      <ul class="nav__link-list">
+    <nav>
+      <ul class="navbar__link-list">
 
-        <!-- Главная -->
-        <li class="nav__link-container">
-          <span class="fa-solid fa-house"></span>
-          <a class="nav__link-label" href="page/main.html">Главная</a>
-        </li>
-
-        <!-- Инфосистемы -->
-        <li class="nav__link-container">
-          <span class="fa-solid fa-circle-nodes"></span>
-          <a class="nav__link-label">Инфосистемы</a>
-        </li>
-
-        <!-- Формы -->
-        <li class="nav__link-container">
-          <span class="fa-solid fa-table"></span>
-          <a class="nav__link-label">Формы</a>
-
-          <div class="nav__dropdown">
-            <a href="main.html" class="nav__link-label"><span class="fa-solid fa-caret-right" style="padding-right: 8px;"></span>Оформление выезда</a>
-            <a class="nav__link-label"><span class="fa-solid fa-caret-right" style="padding-right: 8px;"></span>Передать ПМ</a>
-          </div>
-        </li>
-
-        <!-- Конфигуратор -->
-        <li class="nav__link-container active-link">
-          <span class="fa-solid fa-gears"></span>
-          <a class="nav__link-label">Конфигуратор</a>
-        </li>
-
-        <!-- Инструкции -->
-        <li class="nav__link-container">
-          <span class="fa-solid fa-file-lines"></span>
-          <a class="nav__link-label">Инструкции</a>
-        </li>
-
-        <!-- Контакты -->
-        <li class="nav__link-container">
-          <span class="fa-solid fa-address-book"></span>
-          <a class="nav__link-label">Контакты</a>
-        </li>
-
-        <!-- Регион -->
-        <li class="nav__link-container">
-          <span class="fa fa-earth-americas"></span>
-        </li>
+        <navbar-entry
+            v-for="{ href, icon, label, sublinks } in navbarEntries"
+            :href="href"
+            :icon="icon"
+            :label="label"
+            :sublinks="sublinks"/>
 
       </ul>
     </nav>
 
   </div>
 </template>
+
+
+<script setup>
+import NavbarEntry from 'component/navbar/navbar-entry.vue'
+
+const navbarEntries = [
+  {
+    href: '#',
+    icon: 'fa-solid fa-house',
+    label: 'Главная'
+  },
+  {
+    href: '#',
+    icon: 'fa-solid fa-circle-nodes',
+    label: 'Инфосистемы'
+  },
+  {
+    href: '#',
+    icon: 'fa-solid fa-table',
+    label: 'Формы',
+    sublinks: [
+      {
+        href: '#',
+        icon: 'fa-solid fa-caret-right',
+        label: 'Оформление выезда'
+      },
+      {
+        href: '#',
+        icon: 'fa-solid fa-caret-right',
+        label: 'Передать ПМ'
+      }
+    ]
+  },
+  {
+    href: '#',
+    icon: 'fa-solid fa-gears',
+    label: 'Конфигуратор'
+  },
+  {
+    href: '#',
+    icon: 'fa-solid fa-file-lines',
+    label: 'Инструкции'
+  },
+  {
+    href: '#',
+    icon: 'fa-solid fa-address-book',
+    label: 'Контакты'
+  },
+  {
+    href: '#',
+    icon: 'fa-solid fa-earth-americas'
+  }
+]
+</script>
+
+
+<style lang="scss">
+@use 'style/fonts.scss';
+@use 'style/colors.scss';
+
+
+:root {
+  --display-heading: inline;
+}
+
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 1.2rem;
+  font-weight: fonts.$semibold-weight;
+
+  user-select: none;
+}
+
+.title {
+  display: var(--display-heading);
+  margin: 0;
+  padding-right: 50px;
+  font-size: 1.3rem;
+}
+
+.navbar__link-list {
+  display: inline-flex;
+  margin: 0;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+}
+</style>
