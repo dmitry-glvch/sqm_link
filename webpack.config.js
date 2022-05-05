@@ -65,7 +65,17 @@ module.exports = (_, argv) => ({
       },
 
       {
-        test: /\.s[ac]ss$/i,
+        test: /\.jsx?$/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            plugins: [ '@vue/babel-plugin-jsx' ]
+          }
+        }
+      },
+
+      {
+        test: /\.s[ac]ss$/,
         use: [
           'vue-style-loader',
           'css-loader',

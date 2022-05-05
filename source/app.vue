@@ -4,7 +4,7 @@
     <header>
       <sqm-navbar/>
     </header>
-    
+
     <main>
       <sqm-configurator/>
     </main>
@@ -18,9 +18,9 @@
 
 
 <script setup>
-import SqmNavbar from './component/sqm-navbar.vue'
-import SqmConfigurator from './component/sqm-configurator.vue';
-import SqmFooter from './component/sqm-footer.vue'
+import SqmNavbar from 'component/sqm-navbar.vue'
+import SqmConfigurator from 'component/sqm-configurator.vue';
+import SqmFooter from 'component/sqm-footer.vue'
 </script>
 
 
