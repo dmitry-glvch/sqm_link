@@ -1,9 +1,20 @@
-<script lang='jsx'>
-import inputTyped from './input-typed.jsx'
-import inputMultiline from './input-multiline.jsx'
-import inputSelect from './input-select.jsx'
-import inputRadio from './input-radio.jsx'
-import inputCheckbox from './input-checkbox.jsx'
+<template>
+  <div
+      :class="`input-${type} input-id-${inputId}`"
+      :style="{ 'grid-area': inputId }">
+
+    <component :is="inputComponent" v-bind="{requisite}"/>
+
+  </div>
+</template>
+
+
+<script setup>
+import inputTyped from './input-typed.vue'
+import inputMultiline from './input-multiline.vue'
+import inputSelect from './input-select.vue'
+import inputRadio from './input-radio.vue'
+import inputCheckbox from './input-checkbox.vue'
 
 
 const factories = {
@@ -14,22 +25,14 @@ const factories = {
   checkbox:  inputCheckbox
 }
 
-
-export default {
-  props: {
-    requisite: {
-      type: Object,
-      required: true
-    }
-  },
-  render() {
-    const r = this.requisite
-    const type = this.requisite.input
-    return <div
-        class={`input-${type} input-id-${r.id}`}
-        style={{'grid-area': r.id}}>
-      { factories[type](r) }
-    </div>
+const props = defineProps({
+  requisite: {
+    type: Object,
+    required: true
   }
-}
+})
+
+const type = props.requisite.input
+const inputId = props.requisite.id
+const inputComponent = factories[type]
 </script>

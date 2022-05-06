@@ -6,7 +6,7 @@
     </header>
 
     <main class="main">
-      <component :is="contentComponent"></component>
+      <component :is="contentComponent"/>
     </main>
 
     <footer class="footer">

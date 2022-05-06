@@ -1,5 +1,5 @@
 <template>
-  <form class="form" id="form3ltp">
+  <form class="form container" id="form3ltp">
 
     <div class="inputContainer">
       <input-factory
@@ -256,7 +256,7 @@ form {
 }
 
 #{$inputs-radio-container} {
-  margin-bottom: -12px;
+  margin-bottom: 4px;
 }
 
 #{$inputs-checkbox-label},
