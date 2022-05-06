@@ -45,7 +45,8 @@ module.exports = (_, argv) => ({
     watchFiles: [
       'source/**/*',
       'asset/**/*'
-    ]
+    ],
+    historyApiFallback: true
   },
 
 

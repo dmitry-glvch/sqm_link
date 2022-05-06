@@ -11,7 +11,6 @@
             v-bind:href="entry.href"
             v-bind:icon="entry.icon"
             v-bind:label="entry.label"
-            v-bind:active="entry.active"
             v-bind:sublinks="entry.sublinks"/>
 
       </ul>

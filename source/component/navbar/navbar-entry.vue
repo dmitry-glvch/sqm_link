@@ -1,5 +1,5 @@
 <template>
-<li :class="{ 'navbar__entry': true, 'active': active }">
+<li :class="{ 'navbar__entry': true, 'active': isActive }">
 
   <router-link :to="href" class="link">
 
@@ -20,7 +20,7 @@
 
       <li :class="{
         'navbar__entry': true,
-        'active': active
+        'active': isActive
       }" v-for="link in sublinks">
         <a class="link" :href="link.href">
 
@@ -47,17 +47,22 @@
 
 <script setup>
 
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+
 const props = defineProps({
   href:     String,
   label:    String,
   icon:     String,
-  active:   Boolean,
   sublinks: Array
 })
 
 const isPresent = (stringPropValue) =>
     typeof stringPropValue === 'string' &&
     stringPropValue.length > 0
+
+const isActive = computed(() => 
+    useRoute().path === props.href)
  
 </script>
 
@@ -75,9 +80,11 @@ const isPresent = (stringPropValue) =>
   position: relative;
 
   .link {
+    $horizontal-padding: 20px;
     display: inline-block;
     text-decoration: none;
-    padding: 16px 20px;
+    padding: 16px $horizontal-padding;
+    width: calc(100% - 2 * $horizontal-padding);
   }
 
   .label, .icon::before {

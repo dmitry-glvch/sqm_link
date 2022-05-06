@@ -1,7 +1,7 @@
 export default [
 
   {
-    href: 'https://vk.com',
+    href: '/',
     icon: 'fa-solid fa-house',
     label: 'Главная'
   },
@@ -13,7 +13,7 @@ export default [
   },
 
   {
-    href: '#',
+    href: '/forms',
     icon: 'fa-solid fa-table',
     label: 'Формы',
     sublinks: [
@@ -37,13 +37,13 @@ export default [
   },
 
   {
-    href: '#',
+    href: '/instructions',
     icon: 'fa-solid fa-file-lines',
     label: 'Инструкции'
   },
 
   {
-    href: '#',
+    href: '/contacts',
     icon: 'fa-solid fa-address-book',
     label: 'Контакты'
   },
