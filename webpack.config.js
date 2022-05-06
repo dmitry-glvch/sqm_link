@@ -1,15 +1,8 @@
 const path = require('path')
 
-const HtmlPlugin = require('html-webpack-plugin')
-const VuePlugin= require('vue-loader').VueLoaderPlugin
+const VuePlugin = require('vue-loader').VueLoaderPlugin
 
-
-const makeAliases = (relativePaths) =>
-    Object.fromEntries(
-        relativePaths.map((relativePath) => [
-          path.basename(relativePath),
-          path.resolve(__dirname, relativePath)
-        ] ))
+const helpers = require('./webpack-helpers')
 
 
 module.exports = (_, argv) => ({
@@ -24,13 +17,16 @@ module.exports = (_, argv) => ({
 
   resolve: {
     alias: {
-      ...makeAliases ([
+      ...helpers.aliases ([
         'asset',
         'asset/config',
         'source/style',
         'source/page',
         'source/component'
       ])
+    },
+    fallback: {
+      'path': require.resolve('path-browserify')
     }
   },
 
@@ -45,15 +41,23 @@ module.exports = (_, argv) => ({
     watchFiles: [
       'source/**/*',
       'asset/**/*'
-    ],
-    historyApiFallback: true
+    ]
   },
 
 
   plugins: [
-    new HtmlPlugin({
-      template: 'source/index.html'
-    }),
+    ...helpers.entryPoints({
+      template: 'source/page_template.html',
+      favicon: 'asset/image/favicon.ico'
+    })([
+      { file: 'index',        title: 'Главная'     },
+      { file: 'systems',      title: 'Инфосистемы' },
+      { file: 'forms',        title: 'Формы'       },
+      { file: 'configurator', title: 'Конфигуратор'},
+      { file: 'instructions', title: 'Инструкции'  },
+      { file: 'contacts',     title: 'Контакты'    },
+      { file: 'form3ltp',     title: 'Выезд'       }
+    ]),
     new VuePlugin()
   ],
 

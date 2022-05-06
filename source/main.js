@@ -1,7 +1,5 @@
-import { createApp } from 'vue'
+import { createApp,component } from 'vue'
 
-import App from './app.vue'
-import router from './router.js'
+import Page from './component/page.vue'
 
-
-createApp(App).use(router).mount('#app')
+createApp(Page, { page }).mount('#app_mountpoint')

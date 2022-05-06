@@ -6,20 +6,51 @@
     </header>
 
     <main class="main">
-      <router-view/>
+      <component :is="contentComponent"></component>
     </main>
 
     <footer class="footer">
       <sqm-footer/>
     </footer>
-
   </div>
 </template>
 
 
 <script setup>
+import path from 'path'
+
 import SqmNavbar from 'component/navbar/sqm-navbar.vue'
 import SqmFooter from 'component/sqm-footer.vue'
+
+import SqmConfigurator from 'page/sqm-configurator.vue'
+import SqmContacts from 'page/sqm-contacts.vue'
+import SqmForms from 'page/sqm-forms.vue'
+import SqmIndex from 'page/sqm-index.vue'
+import SqmInstructuions from 'page/sqm-instructions.vue'
+import SqmSystems from 'page/sqm-systems.vue'
+
+import Form3ltp from 'component/form/form-3ltp.vue'
+
+
+const content = {
+  configurator: SqmConfigurator,
+  contacts: SqmContacts,
+  forms: SqmForms,
+  index: SqmIndex,
+  instructions: SqmInstructuions,
+  systems: SqmSystems,
+  form3ltp: Form3ltp
+}
+
+const props = defineProps({
+  page: {
+    type: String,
+    required: true
+  }
+})
+
+const contentComponentName = path.basename(props.page, '.html')
+const contentComponent = content[contentComponentName]
 </script>
 
 
@@ -43,6 +74,7 @@ body {
 }
 
 .header {
+  z-index: 1;
   position: sticky;
   top: 0;
 
@@ -52,10 +84,11 @@ body {
 
 .main {
   padding-top: 20px;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .footer {
+  margin-top: 40px;
   padding: 60px 0;
   background-color: colors.$footer-bg;
   color: colors.$footer-fg;

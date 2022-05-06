@@ -1,7 +1,7 @@
 <template>
 <li :class="{ 'navbar__entry': true, 'active': isActive }">
 
-  <router-link :to="href" class="link">
+  <a :href="href" class="link">
 
     <span :class="[
       'icon',
@@ -13,7 +13,7 @@
       {{ label }}
     </span>
 
-  </router-link>
+  </a>
 
   <div class="dropdown" v-if="sublinks !== undefined && sublinks.length > 0">
     <ul>
@@ -48,7 +48,6 @@
 <script setup>
 
 import { computed } from 'vue'
-import { useRoute } from 'vue-router'
 
 const props = defineProps({
   href:     String,
@@ -61,8 +60,7 @@ const isPresent = (stringPropValue) =>
     typeof stringPropValue === 'string' &&
     stringPropValue.length > 0
 
-const isActive = computed(() => 
-    useRoute().path === props.href)
+const isActive = computed(() => false)
  
 </script>
 
@@ -133,12 +131,16 @@ const isActive = computed(() =>
   .dropdown:hover,
   .dropdown:focus {
     display: flex;
+    visibility: visible;
     flex-direction: column;
   }
 
   .dropdown {
-    
+
+    z-index: 1;
+
     display: none;
+    visibility: hidden;
 
     position: absolute;
     left: 0;
