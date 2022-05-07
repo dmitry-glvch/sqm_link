@@ -1,11 +1,13 @@
 <template>
 
   <label
+      class="checkbox-label"
       :for="requisite.id"
       data-for-checkbox
       @click.stop="toggle">
     
     <input
+        class="checkbox-input"
         type="checkbox"
         :name="requisite.id"
         :checked="checked"
@@ -13,7 +15,9 @@
         :value="requisite.checked"
         @click.stop=""/>
 
-    <div>{{ typo(requisite.label) }}</div>
+    <div class="checkbox-caption">
+      {{ typo(requisite.label) }}
+    </div>
 
   </label>
 
@@ -35,5 +39,32 @@ const props = defineProps({
 
 const checked = ref(props.requisite.state === 'checked')
 
-const toggle = () => checked = !checked
+const toggle = () => checked.value = !checked.value
 </script>
+
+
+<style lang="scss" scoped>
+@use 'style/colors.scss';
+
+.checkbox-label {
+  user-select: none;
+  display: flex;
+  vertical-align: middle;
+}
+
+.checkbox-input {
+  accent-color: colors.$form-input-accent;
+
+  transform: scale(1.35);
+  margin-left: 3px;
+  margin-right: 10px;
+  
+  vertical-align: middle;
+  align-self: center;
+}
+
+.checkbox-caption {
+  display: inline-block;
+  vertical-align: middle;
+}
+</style>

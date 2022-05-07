@@ -25,6 +25,18 @@ $navigation-icon: color.adjust($header-fg, $alpha: -0.25);
 $navigation-icon-active: color.adjust($link-active-fg, $alpha: -0.25);
 $navigation-icon-hover: color.adjust($link-hover-fg, $alpha: -0.25);
 
+$form-input-bg: color('white-soapstone');
+$form-input-fg: $primary-fg;
+$form-input-label-fg: color('davys-grey');
+$form-input-outline: color.adjust(color('davys-grey'), $alpha: -0.75);
+$form-input-placeholder: color('subtle-aquamarine');
+$form-input-accent: color('fiery-tangerine');
+
+$form-button-bg: color('white-soapstone');
+$form-button-fg: $primary-fg;
+$form-button-main-bg: color('davys-grey');
+$form-button-main-fg: color('white-soapstone');
+
 $config-select-tab-bg: color('white-soapstone');
 $config-select-tab-fg: color('davys-grey');
 

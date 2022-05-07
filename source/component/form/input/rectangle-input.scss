@@ -1,0 +1,21 @@
+@use 'style/sizes.scss';
+@use 'style/colors.scss';
+
+
+.rectangle-input {
+
+  color: colors.$form-input-fg;
+  background: colors.$form-input-bg;
+
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: sizes.$default-border-radius;
+  border-width: 0;
+  padding: sizes.$form-input-padding;
+
+  &:focus {
+    outline: none !important;
+    box-shadow: 0 0 16px colors.$form-input-outline;
+  }
+
+}

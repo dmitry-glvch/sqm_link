@@ -12,6 +12,7 @@
     <footer class="footer">
       <sqm-footer/>
     </footer>
+
   </div>
 </template>
 
@@ -84,7 +85,6 @@ body {
 
 .main {
   padding-top: 20px;
-  min-height: 100vh;
 }
 
 .footer {
