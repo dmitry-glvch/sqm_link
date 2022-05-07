@@ -36,13 +36,16 @@
 
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 
 import copyToClipboard from 'copy-to-clipboard'
 
-import InputFactory from './input/input-factory.vue'
-import InputButton from './input/input-button.vue'
-import form3ltp from 'asset/config/form/3ltp'
+import InputFactory from 'component/form/input/input-factory.vue'
+import InputButton from 'component/form/input/input-button.vue'
+import form3ltp from 'asset/config/form/3ltp.js'
+
+import fillTemplate from 'component/form/fill-template.js'
+import clearInputs from 'component/form/clear-inputs.js'
 
 
 const inputRefs = ref([])
@@ -50,20 +53,14 @@ const controlCopyResult = ref(null)
 const result = ref(null)
 
 const fill = () => {
-  const filled = inputRefs.value
-      .map((i) => ({ id: i.id(), value: i.value() ?? '' }))
-      .reduce(
-          (s, { id, value }) => s.replace(`\${${id}}`, value),
-          form3ltp.template)
-
+  const filled = fillTemplate(inputRefs.value, form3ltp.template)
   document.querySelector('.input-id-result textarea').value = filled
-
   if (controlCopyResult.value.value())
     copyToClipboard(result.value.value())
 }
 
 const clear = () => {
-  inputRefs.value.forEach((i) => i.clear())
+  clearInputs(inputRefs.value)
   controlCopyResult.value.clear()
   result.value.clear()
 }

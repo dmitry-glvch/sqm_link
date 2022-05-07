@@ -30,7 +30,7 @@ import SqmIndex from 'page/sqm-index.vue'
 import SqmInstructuions from 'page/sqm-instructions.vue'
 import SqmSystems from 'page/sqm-systems.vue'
 
-import Form3ltp from 'component/form/form-3ltp.vue'
+import Form3ltp from 'page/forms/form-3ltp.vue'
 
 
 const content = {
