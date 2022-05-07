@@ -44,6 +44,8 @@ const inputComponent = factories[type]
 const input = ref(null)
 
 defineExpose({
-  clear: () => input.value.clear()
+  clear: () => input.value.clear(),
+  value: () => input.value.value(),
+  id:    () => inputId
 })
 </script>

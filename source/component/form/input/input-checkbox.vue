@@ -38,7 +38,10 @@ const checked = ref(defaultState)
 const toggle = () => checked.value = !checked.value
 
 defineExpose({
-  clear: () => checked.value = defaultState
+  clear: () => checked.value = defaultState,
+  value: () => checked.value ?
+      props.requisite.checked :
+      props.requisite.unchecked
 })
 </script>
 

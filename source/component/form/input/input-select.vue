@@ -6,8 +6,8 @@
 
   <select
       class="rectangle-input select"
-      :name="requisite.id"
-      :placeholder="requisite.hint ?? '' ">
+      ref="select"
+      :name="requisite.id">
 
     <option v-if="!hasDefault()"
         ref="defaultOption"
@@ -16,6 +16,7 @@
     <option
         v-for="option in normalizedOptions"
         :ref="option.default ? 'defaultOption' : null"
+        :data-templated-value="option.template"
         :selected="option.default">
       {{ typo(option.display) }}
     </option>
@@ -47,6 +48,7 @@ const normalizedOptions =
     props.requisite.options.map(normalizeOption)
 
 const defaultOption = ref(null)
+const select = ref(null)
 
 onMounted(() => {
   console.log(props.requisite.label, defaultOption)
@@ -59,7 +61,10 @@ defineExpose({
     } else {
       defaultOption.value.selected = true
     }
-  }
+  },
+  value: () => select.value
+      .selectedOptions[0]
+      .getAttribute('data-templated-value')
 })
 </script>
 

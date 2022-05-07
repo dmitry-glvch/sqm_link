@@ -146,9 +146,9 @@ export default {
     }
   ],
   template: `
-Необходимость проверки кабеля:  \${cable_check_need}
+Необходимость проверки кабеля: \${cable_check_need}
 
-Заявленная клиентом проблема:  \${issue_type}
+Заявленная клиентом проблема: \${issue_type}
 
 Произведенная диагностика: \${performed_diagnostics}
 
@@ -156,9 +156,9 @@ export default {
 
 Информация по каналу: \${channel_info}
 
-Оборудование перезагружалось:  \${equipment_reboot_status}
+Оборудование перезагружалось: \${equipment_reboot_status}
 
-Наличие Э/П:  \${electricity_status}
+Наличие Э/П: \${electricity_status}
 
 Контактный телефон представителя клиента на объекте: \${client_contact}
 
@@ -166,11 +166,11 @@ export default {
 
 Тип допуска на объект: \${admittance_type}
 
-Доступ на объект:  \${quarantine_status}
+Доступ на объект: \${quarantine_status}
 
-Статус клиента:  \${infected_presence}
+Статус клиента: \${infected_presence}
 
-Согласие дать расписку:  \${voucher_status}
+Согласие дать расписку: \${voucher_status}
 
 Контрольный срок по ТТ: NaN.NaN.NaN NaN:NaN
 

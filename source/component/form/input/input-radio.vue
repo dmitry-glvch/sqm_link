@@ -7,6 +7,7 @@
   <label
       v-for="(option, i) in normalizedOptions"
       class="radio-label"
+      ref="radioContainer"
       :for="`${requisite.id}_${i}`">
 
     <input
@@ -45,9 +46,14 @@ const normalizedOptions =
     props.requisite.options.map(normalizeOption)
 
 const defaultRadio = ref(null)
+const radioContainer = ref(null)
 
 defineExpose({
-  clear: () => defaultRadio.value[0].checked = true
+  clear: () => defaultRadio.value[0].checked = true,
+  value: () => radioContainer.value
+      .map((container) => container.firstChild)
+      .find((radio) => radio.checked)
+      .value
 })
 </script>
 

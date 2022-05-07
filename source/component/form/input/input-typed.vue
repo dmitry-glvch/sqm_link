@@ -27,13 +27,13 @@ const props = defineProps({
   }
 })
 
-const placeholderText = 
-    props.requisite.hint ? typo(props.requisite.hint) : ''
+const placeholderText = typo(props.requisite.hint ?? '')
 
 const input = ref(null)
 
 defineExpose({
-  clear: () => input.value.value = ''
+  clear: () => input.value.value = '',
+  value: () => input.value.value
 })
 </script>
 

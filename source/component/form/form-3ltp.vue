@@ -29,10 +29,8 @@
           :requisite="copyToClipboardRequisite"/>
     </div>
 
-    <input-factory
-        ref="result"
-        :requisite="resultRequisite"/>
-    
+    <input-factory ref="result" :requisite="resultRequisite"/>
+
   </form>
 </template>
 
@@ -58,25 +56,17 @@ const inputRefs = ref([])
 const controlCopyResult = ref(null)
 const result = ref(null)
 
-
 const fill = () => {
-  const formData = new FormData (document.querySelector('#form3ltp'))
-
-  const filled = form3ltp.requisites.reduce((result, requisite) => {
-    let value
-    if (requisite.input === 'checkbox') {
-      const checked = document.getElementsByName(requisite.id)[0].checked
-      value = checked ? requisite.checked : requisite.unchecked
-    } else {
-      value = formData.get(requisite.id)
-    }
-    return result.replace (`\${${requisite.id}}`, value ?? '')
-  }, form3ltp.template)
+  const filled = inputRefs.value
+      .map((i) => ({ id: i.id(), value: i.value() ?? '' }))
+      .reduce(
+          (s, { id, value }) => s.replace(`\${${id}}`, value),
+          form3ltp.template)
 
   document.querySelector('.input-id-result textarea').value = filled
 
-  if (document.querySelector('.control-copy-result input').checked)
-    copyToClipboard(document.getElementsByName('result')[0].value)
+  if (controlCopyResult.value.value())
+    copyToClipboard(result.value.value())
 }
 
 const clear = () => {
@@ -89,7 +79,9 @@ const copyToClipboardRequisite = {
   id: 'control-copy-result',
   input: 'checkbox',
   state: 'checked',
-  label: 'Cкопировать результат в буфер обмена'
+  label: 'Cкопировать результат в буфер обмена',
+  checked: true,
+  unchecked: false
 }
 
 const resultRequisite = {
