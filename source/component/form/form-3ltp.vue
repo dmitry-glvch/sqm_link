@@ -1,5 +1,5 @@
 <template>
-  <form class="form container" id="form3ltp">
+  <form class="container">
 
     <div class="inputContainer">
       <input-factory
@@ -35,7 +35,7 @@
 </template>
 
 
-<script setup lang='jsx'>
+<script setup>
 import { onMounted, ref } from 'vue'
 
 import copyToClipboard from 'copy-to-clipboard'
@@ -44,13 +44,6 @@ import InputFactory from './input/input-factory.vue'
 import InputButton from './input/input-button.vue'
 import form3ltp from 'asset/config/form/3ltp'
 
-
-onMounted(() => {
-  const channelInfoInput =
-      document.querySelector('.input-id-channel_info textarea')
-  channelInfoInput.setAttribute('spellcheck', 'false')
-  channelInfoInput.setAttribute('wrap', 'off')
-})
 
 const inputRefs = ref([])
 const controlCopyResult = ref(null)

@@ -9,7 +9,8 @@
       ref="input"
       :name="requisite.id"
       :type="requisite.type"
-      :placeholder="placeholderText"/>
+      :placeholder="placeholderText"
+      v-bind="requisite.attrs"/>
 
 </template>
 

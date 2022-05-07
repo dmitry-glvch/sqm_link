@@ -58,7 +58,11 @@ export default {
       id: 'channel_info',
       label: 'Информация по каналу',
       input: 'multiline',
-      hint: 'Скопировать описание канала из NOC'
+      hint: 'Скопировать описание канала из NOC',
+      attrs: {
+        spellcheck: false,
+        wrap: 'off'
+      }
     },
     {
       id: 'communication_plan',
