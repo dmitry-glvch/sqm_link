@@ -10,12 +10,13 @@
       :placeholder="requisite.hint ?? '' ">
 
     <option v-if="!hasDefault()"
-        hidden selected disabled :data-default="true"/>
+        ref="defaultOption"
+        hidden selected disabled/>
 
     <option
         v-for="option in normalizedOptions"
-        :selected="option.default"
-        :data-default="option.default">
+        :ref="option.default ? 'defaultOption' : null"
+        :selected="option.default">
       {{ typo(option.display) }}
     </option>
 
@@ -25,6 +26,8 @@
 
 
 <script setup>
+import { onMounted, ref } from 'vue'
+
 import normalizeOption from '../normalize-option.js'
 import typo from '../typo.js'
 import inputLabel from './input-label.vue'
@@ -42,6 +45,22 @@ const hasDefault = () =>
 
 const normalizedOptions = 
     props.requisite.options.map(normalizeOption)
+
+const defaultOption = ref(null)
+
+onMounted(() => {
+  console.log(props.requisite.label, defaultOption)
+})
+
+defineExpose({
+  clear: () => {
+    if (Array.isArray(defaultOption.value)) {
+      defaultOption.value[0].selected = true
+    } else {
+      defaultOption.value.selected = true
+    }
+  }
+})
 </script>
 
 

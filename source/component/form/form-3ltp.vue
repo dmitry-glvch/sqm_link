@@ -4,6 +4,7 @@
     <div class="inputContainer">
       <input-factory
           v-for="requisite in form3ltp.requisites"
+          ref="inputRefs"
           :key="requisite.id"
           :requisite="requisite"/>
     </div>
@@ -24,17 +25,20 @@
 
       <input-factory
           class="control-copy-result"
+          ref="controlCopyResult"
           :requisite="copyToClipboardRequisite"/>
     </div>
 
-    <input-factory :requisite="resultRequisite"/>
+    <input-factory
+        ref="result"
+        :requisite="resultRequisite"/>
     
   </form>
 </template>
 
 
 <script setup lang='jsx'>
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import copyToClipboard from 'copy-to-clipboard'
 
@@ -49,6 +53,10 @@ onMounted(() => {
   channelInfoInput.setAttribute('spellcheck', 'false')
   channelInfoInput.setAttribute('wrap', 'off')
 })
+
+const inputRefs = ref([])
+const controlCopyResult = ref(null)
+const result = ref(null)
 
 
 const fill = () => {
@@ -72,21 +80,9 @@ const fill = () => {
 }
 
 const clear = () => {
-  document
-      .querySelectorAll('.input-typed input, .input-multiline textarea')
-      .forEach(input => input.value = '')
-  
-  document
-      .querySelectorAll('.input-radio input[data-default=true]')
-      .forEach(input => input.checked = true)
-  
-  document
-      .querySelectorAll('.input-select select option[data-default=true]')
-      .forEach(option => option.selected = true)
-
-  document
-      .querySelectorAll('.input-checkbox input[type=checkbox]')
-      .forEach(checkbox =>  checkbox.checked = checkbox.getAttribute('data-default-state')  === 'true')
+  inputRefs.value.forEach((i) => i.clear())
+  controlCopyResult.value.clear()
+  result.value.clear()
 }
 
 const copyToClipboardRequisite = {

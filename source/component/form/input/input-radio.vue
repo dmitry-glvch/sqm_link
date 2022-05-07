@@ -11,12 +11,12 @@
 
     <input
         class="radio-input"
+        :ref="option.default ? 'defaultRadio' : null"
         :id="`${requisite.id}_${i}`"
         :name="requisite.id"
         type="radio"
         :value="option.template"
-        :checked="option.default"
-        :data-default="option.default"/>
+        :checked="option.default"/>
 
     <div class="radio-caption">
       {{ typo(option.display) }}
@@ -28,10 +28,11 @@
 
 
 <script setup>
+import { ref } from 'vue'
+
 import normalizeOption from '../normalize-option.js'
 import typo from '../typo.js'
 import inputLabel from './input-label.vue'
-
 
 const props = defineProps({
   requisite: {
@@ -42,6 +43,12 @@ const props = defineProps({
 
 const normalizedOptions = 
     props.requisite.options.map(normalizeOption)
+
+const defaultRadio = ref(null)
+
+defineExpose({
+  clear: () => defaultRadio.value[0].checked = true
+})
 </script>
 
 

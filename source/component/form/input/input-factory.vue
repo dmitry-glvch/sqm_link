@@ -3,13 +3,18 @@
       :class="`input-${type} input-id-${inputId}`"
       :style="{ 'grid-area': inputId }">
 
-    <component :is="inputComponent" v-bind="{requisite}"/>
+    <component
+        ref="input"
+        :is="inputComponent"
+        v-bind="{requisite}"/>
 
   </div>
 </template>
 
 
 <script setup>
+import { ref } from 'vue'
+
 import inputTyped from './input-typed.vue'
 import inputMultiline from './input-multiline.vue'
 import inputSelect from './input-select.vue'
@@ -35,4 +40,10 @@ const props = defineProps({
 const type = props.requisite.input
 const inputId = props.requisite.id
 const inputComponent = factories[type]
+
+const input = ref(null)
+
+defineExpose({
+  clear: () => input.value.clear()
+})
 </script>

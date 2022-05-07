@@ -16,8 +16,6 @@ const props = defineProps({
   action: Function,
   caption: String
 })
-
-console.log('PROPS', props)
 </script>
 
 

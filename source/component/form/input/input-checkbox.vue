@@ -3,7 +3,6 @@
   <label
       class="checkbox-label"
       :for="requisite.id"
-      data-for-checkbox
       @click.stop="toggle">
     
     <input
@@ -11,9 +10,8 @@
         type="checkbox"
         :name="requisite.id"
         :checked="checked"
-        :data-default-state="requisite.state === 'checked' "
         :value="requisite.checked"
-        @click.stop=""/>
+        @click.stop="toggle"/>
 
     <div class="checkbox-caption">
       {{ typo(requisite.label) }}
@@ -26,9 +24,7 @@
 
 <script setup>
 import { ref } from 'vue'
-
 import typo from '../typo.js'
-
 
 const props = defineProps({
   requisite: {
@@ -37,9 +33,13 @@ const props = defineProps({
   }
 })
 
-const checked = ref(props.requisite.state === 'checked')
-
+const defaultState = props.requisite.state === 'checked'
+const checked = ref(defaultState)
 const toggle = () => checked.value = !checked.value
+
+defineExpose({
+  clear: () => checked.value = defaultState
+})
 </script>
 
 
