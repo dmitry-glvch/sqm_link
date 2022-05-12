@@ -28,15 +28,18 @@
 
 
 <script setup>
+import { useRoute } from 'vue-router';
+
 import NavbarLink from './navar-link.vue'
 
-defineProps({
+const props = defineProps({
   path:     String,
   label:    String,
   icon:     String,
-  sublinks: Array,
-  active:   Boolean
+  sublinks: Array
 })
+
+console.log(useRoute().path, props.path)
 </script>
 
 

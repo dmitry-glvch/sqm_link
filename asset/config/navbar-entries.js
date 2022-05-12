@@ -1,7 +1,7 @@
 export default [
 
   {
-    path: '/index',
+    path: '/main',
     icon: 'fa-solid fa-house',
     label: 'Главная'
   },

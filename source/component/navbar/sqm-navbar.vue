@@ -8,10 +8,10 @@
 
         <navbar-entry
             v-for="entry in navbarEntries"
-            v-bind:path="entry.path"
-            v-bind:icon="entry.icon"
-            v-bind:label="entry.label"
-            v-bind:sublinks="entry.sublinks"/>
+            :path="entry.path"
+            :icon="entry.icon"
+            :label="entry.label"
+            :sublinks="entry.sublinks"/>
 
       </ul>
     </nav>
