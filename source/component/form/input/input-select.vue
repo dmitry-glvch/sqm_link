@@ -27,7 +27,7 @@
 
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 
 import normalizeOption from '../normalize-option.js'
 import typo from '../typo.js'
@@ -50,17 +50,13 @@ const normalizedOptions =
 const defaultOption = ref(null)
 const select = ref(null)
 
-onMounted(() => {
-  console.log(props.requisite.label, defaultOption)
-})
 
 defineExpose({
   clear: () => {
-    if (Array.isArray(defaultOption.value)) {
+    if (Array.isArray(defaultOption.value))
       defaultOption.value[0].selected = true
-    } else {
+    else
       defaultOption.value.selected = true
-    }
   },
   value: () => select.value
       .selectedOptions[0]

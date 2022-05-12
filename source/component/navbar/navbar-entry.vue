@@ -1,41 +1,23 @@
 <template>
-<li :class="{ 'navbar__entry': true, 'active': isActive }">
+<li :class="{ 'navbar__entry': true, 'active': active }">
 
-  <a :href="href" class="link">
+  <navbar-link
+      :path="path"
+      :label="label"
+      :icon="icon"/>
 
-    <span :class="[
-      'icon',
-      icon,
-      isPresent(label) ? 'labelPadding' : ''
-    ]" v-if="isPresent(icon)"></span>
-
-    <span class="label" v-if="isPresent(label)">
-      {{ label }}
-    </span>
-
-  </a>
-
-  <div class="dropdown" v-if="sublinks !== undefined && sublinks.length > 0">
+  <div class="dropdown" v-if="sublinks?.length > 0">
     <ul>
 
-      <li :class="{
-        'navbar__entry': true,
-        'active': isActive
-      }" v-for="link in sublinks">
-        <a class="link" :href="link.href">
-
-          <span :class="[
-            'icon',
-            link.icon,
-            isPresent(link.label) ? 'labelPadding' : ''
-          ]" v-if="isPresent(link.icon)"></span>
-
-          <span class="label"
-              v-if="isPresent(link.label)">
-            {{ link.label }}
-          </span>
-
-        </a>
+      <li v-for="link in sublinks"
+          :class="{
+            'navbar__entry': true,
+            'active': active
+          }">
+        <navbar-link
+            :path="link.path"
+            :label="link.label"
+            :icon="link.icon"/>
       </li>
 
     </ul>
@@ -46,22 +28,15 @@
 
 
 <script setup>
+import NavbarLink from './navar-link.vue'
 
-import { computed } from 'vue'
-
-const props = defineProps({
-  href:     String,
+defineProps({
+  path:     String,
   label:    String,
   icon:     String,
-  sublinks: Array
+  sublinks: Array,
+  active:   Boolean
 })
-
-const isPresent = (stringPropValue) =>
-    typeof stringPropValue === 'string' &&
-    stringPropValue.length > 0
-
-const isActive = computed(() => false)
- 
 </script>
 
 
@@ -73,58 +48,7 @@ const isActive = computed(() => false)
 .navbar__entry {
 
   display: inline-block;
-  margin: 0;
-  padding: 0;
   position: relative;
-
-  .link {
-    $horizontal-padding: 20px;
-    display: inline-block;
-    text-decoration: none;
-    padding: 16px $horizontal-padding;
-    width: calc(100% - 2 * $horizontal-padding);
-  }
-
-  .label, .icon::before {
-    color: colors.$link-fg;
-  }
-
-  &.active {
-    .label, .icon::before {
-      color: colors.$link-active-fg;
-    }
-  }
-
-  // &.active-link {
-  //   color: colors.$active-link;
-  //   span::before {
-  //     color: colors.$navigation-icon-active;
-  //   }
-  //   .nav__link-label {
-  //     color: inherit;
-  //   }
-  // }
-
-  .icon::before {
-    color: colors.$navigation-icon;
-  }
-  .icon.labelPadding::before {
-    padding-right: 8px;
-  }
-
-  text-align: center;
-  font-size: 1.1rem;
-
-  transition: color 0.2s ease;
-  transition: background-color 0.5s ease;
-
-  &:hover {
-    background-color: colors.$link-hover-bg;
-    cursor: pointer;
-    .label, .icon::before {
-      color: colors.$link-hover-fg;
-    }
-  }
 
   &:hover .dropdown,
   &:focus-within .dropdown,
@@ -165,20 +89,6 @@ const isActive = computed(() => false)
       &:last-of-type {
         border-bottom-left-radius: sizes.$default-border-radius;
         border-bottom-right-radius: sizes.$default-border-radius;
-      }
-
-      .label, .icon::before {
-        color: colors.$link-fg;
-      }
-
-      &:hover {
-        background-color: colors.$link-hover-bg;
-        color: colors.$link-hover-fg;
-        cursor: pointer;
-
-        .label, .icon::before {
-          color: colors.$link-hover-fg;
-        }
       }
 
     }

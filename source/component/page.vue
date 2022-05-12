@@ -6,7 +6,7 @@
     </header>
 
     <main class="main">
-      <component :is="contentComponent"/>
+      <router-view/>
     </main>
 
     <footer class="footer">
@@ -18,40 +18,8 @@
 
 
 <script setup>
-import path from 'path'
-
-import SqmNavbar from 'component/navbar/sqm-navbar.vue'
-import SqmFooter from 'component/sqm-footer.vue'
-
-import SqmConfigurator from 'page/sqm-configurator.vue'
-import SqmContacts from 'page/sqm-contacts.vue'
-import SqmForms from 'page/sqm-forms.vue'
-import SqmIndex from 'page/sqm-index.vue'
-import SqmInstructuions from 'page/sqm-instructions.vue'
-import SqmSystems from 'page/sqm-systems.vue'
-
-import Form3ltp from 'page/forms/form-3ltp.vue'
-
-
-const content = {
-  configurator: SqmConfigurator,
-  contacts: SqmContacts,
-  forms: SqmForms,
-  index: SqmIndex,
-  instructions: SqmInstructuions,
-  systems: SqmSystems,
-  form3ltp: Form3ltp
-}
-
-const props = defineProps({
-  page: {
-    type: String,
-    required: true
-  }
-})
-
-const contentComponentName = path.basename(props.page, '.html')
-const contentComponent = content[contentComponentName]
+import SqmNavbar from './navbar/sqm-navbar.vue'
+import SqmFooter from './sqm-footer.vue'
 </script>
 
 

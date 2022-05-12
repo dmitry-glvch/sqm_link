@@ -8,7 +8,7 @@
 
         <navbar-entry
             v-for="entry in navbarEntries"
-            v-bind:href="entry.href"
+            v-bind:path="entry.path"
             v-bind:icon="entry.icon"
             v-bind:label="entry.label"
             v-bind:sublinks="entry.sublinks"/>

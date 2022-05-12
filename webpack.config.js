@@ -1,8 +1,9 @@
 const path = require('path')
 
+const HtmlPlugin = require('html-webpack-plugin')
 const VuePlugin = require('vue-loader').VueLoaderPlugin
 
-const helpers = require('./webpack-helpers')
+const aliases = require('./webpack-aliases.js')
 
 
 module.exports = (_, argv) => ({
@@ -16,18 +17,14 @@ module.exports = (_, argv) => ({
   },
 
   resolve: {
-    alias: {
-      ...helpers.aliases ([
-        'asset',
-        'asset/config',
-        'source/style',
-        'source/page',
-        'source/component'
-      ])
-    },
-    fallback: {
-      'path': require.resolve('path-browserify')
-    }
+    alias: aliases([
+      'asset',
+      'source',
+      'asset/config',
+      'source/style',
+      'source/page',
+      'source/component'
+    ])
   },
 
 
@@ -46,19 +43,15 @@ module.exports = (_, argv) => ({
 
 
   plugins: [
-    ...helpers.entryPoints({
-      template: 'source/page_template.html',
-      favicon: 'asset/image/favicon.ico'
-    })([
-      { file: 'index',        title: 'Главная'     },
-      { file: 'systems',      title: 'Инфосистемы' },
-      { file: 'forms',        title: 'Формы'       },
-      { file: 'configurator', title: 'Конфигуратор'},
-      { file: 'instructions', title: 'Инструкции'  },
-      { file: 'contacts',     title: 'Контакты'    },
-      { file: 'form3ltp',     title: 'Выезд'       }
-    ]),
+
+    new HtmlPlugin({
+      template: 'source/page-template.html',
+      filename: 'index.html',
+      title: 'SQM Link',
+    }),
+
     new VuePlugin()
+
   ],
 
 
@@ -68,16 +61,6 @@ module.exports = (_, argv) => ({
       {
         test: /\.vue$/,
         loader: 'vue-loader'
-      },
-
-      {
-        test: /\.jsx?$/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            plugins: [ '@vue/babel-plugin-jsx' ]
-          }
-        }
       },
 
       {

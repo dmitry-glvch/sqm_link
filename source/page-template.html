@@ -7,16 +7,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>SQM Link | <%= htmlWebpackPlugin.options.title %></title>
+  <title><%= htmlWebpackPlugin.options.title %></title>
 </head>
 
 
 <body>
-  <div id="app_mountpoint"></div>
-  <script>
-    const page = '<%= htmlWebpackPlugin.options.filename %>'
-  </script>
-  <script src="main.js"></script>
+  <div id="app-mountpoint"></div>
+  <script src="/main.js"></script>
 </body>
 
 </html>

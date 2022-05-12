@@ -1,29 +1,29 @@
 export default [
 
   {
-    href: 'index.html',
+    path: '/index',
     icon: 'fa-solid fa-house',
     label: 'Главная'
   },
 
   {
-    href: 'systems.html',
+    path: '/systems',
     icon: 'fa-solid fa-circle-nodes',
     label: 'Инфосистемы'
   },
 
   {
-    href: 'forms.html',
+    path: '/forms',
     icon: 'fa-solid fa-table',
     label: 'Формы',
     sublinks: [
       {
-        href: 'form3ltp.html',
+        path: '/forms/3ltp',
         icon: 'fa-solid fa-caret-right',
         label: 'Оформление выезда'
       },
       {
-        href: '#',
+        path: '#',
         icon: 'fa-solid fa-caret-right',
         label: 'Передать ПМ'
       }
@@ -31,25 +31,25 @@ export default [
   },
 
   {
-    href: 'configurator.html',
+    path: '/configurator',
     icon: 'fa-solid fa-gears',
     label: 'Конфигуратор'
   },
 
   {
-    href: 'instructions.html',
+    path: '/instructions',
     icon: 'fa-solid fa-file-lines',
     label: 'Инструкции'
   },
 
   {
-    href: 'contacts.html',
+    path: '/contacts',
     icon: 'fa-solid fa-address-book',
     label: 'Контакты'
   },
 
   {
-    href: '#',
+    path: '#',
     icon: 'fa-solid fa-earth-americas'
   }
 
