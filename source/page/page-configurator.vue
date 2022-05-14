@@ -16,7 +16,12 @@
         <a>Псков</a>
       </nav>
       <div class="config-selected-container">
-        выбранный контент
+
+        <info-card
+            v-for="group in Object.keys(arkhangelsk)"
+            :title="group"
+            :equipment="arkhangelsk[group]"/>
+
       </div>
     </div>
 
@@ -24,8 +29,16 @@
 </template>
 
 
+<script setup>
+import InfoCard from 'component/configurator/info-card.vue'
+
+import arkhangelsk from 'config/configurator/arkhangelsk.js'
+</script>
+
+
 <style lang="scss">
 @use 'style/colors.scss';
+@use 'style/fonts.scss';
 
 
 .config-selector {
@@ -38,6 +51,8 @@
 
   .config-selected-container {
     padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 
   a {
