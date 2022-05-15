@@ -36,13 +36,17 @@ import InfoCard from 'component/configurator/info-card.vue'
 import typo from 'util/typo.js'
 
 import regions from 'config/configurator/regions.js'
-import arkhangelsk from 'config/configurator/arkhangelsk.js'
 import spb from 'config/configurator/spb.js'
+import arkhangelsk from 'config/configurator/arkhangelsk.js'
+import vologda from 'config/configurator/vologda.js'
+import kaliningrad from 'config/configurator/kaliningrad.js'
 
 
 const regionCredentials = {
+  spb,
   arkhangelsk,
-  spb
+  vologda,
+  kaliningrad
 }
 
 const selectedCredentials = computed(
@@ -66,7 +70,7 @@ const selectedCredentials = computed(
   .config-selected-container {
     padding: 20px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   .router-link-active {

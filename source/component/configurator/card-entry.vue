@@ -5,12 +5,13 @@
     <div class="options">
 
       <p v-for="option in options" class="option">
-        <template v-for="(value, i) in option">
-          <div class="tooltip" ref="tooltip">Скопировано</div>
-          <span class="value" ref="value" @click="(_) => copyValue(i)">
+          <span
+              v-for="value in option"
+              class="value"
+              ref="value"
+              @click="copyValue">
             {{ value }}
           </span>
-        </template>
       </p>
 
     </div>
@@ -21,8 +22,8 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import tippy from 'tippy.js'
 import copyToClipboard from 'copy-to-clipboard'
-import { createPopper } from '@popperjs/core';
 
 
 defineProps({
@@ -36,25 +37,20 @@ defineProps({
   }
 })
 
-const tooltip = ref(null)
-const value = ref(null)
+let tooltip
 
-onMounted(() =>
-    value.value.forEach((v, i) =>
-        createPopper(v, tooltip.value[i], {
-          placement: 'top'
-        })))
+onMounted(() => tooltip = tippy('span.value', {
+  content: 'Скопировано',
+  trigger: 'click',
+  onShow(instance) {
+    setTimeout(() => {
+      instance.hide();
+    }, 500);
+  }
+}))
 
-const copyValue = (valueIndex) => {
-  copyToClipboard(value.value[valueIndex].textContent)
-
-  const tt = tooltip.value[valueIndex]
-  tt.style.opacity = 1
-  tt.style.zIndex = 1
-  setTimeout(() => {
-    tt.style.opacity = 0
-    setTimeout(() => tt.style.zIndex = -1, 200)
-  }, 400)
+const copyValue = (event) => {
+  copyToClipboard(event.target.textContent)
 }
 </script>
 
@@ -64,6 +60,8 @@ const copyValue = (valueIndex) => {
 @use 'style/colors.scss';
 @use 'style/fonts.scss';
 
+@import 'tippy.js/dist/tippy.css';
+
 
 .entry{
   display: flex;
@@ -72,6 +70,7 @@ const copyValue = (valueIndex) => {
   padding: 0;
   .label {
     margin: 0;
+    width: max-content;
     font-weight: fonts.$semibold-weight;
     &::after {
       content: ':';
@@ -79,18 +78,23 @@ const copyValue = (valueIndex) => {
     }
   }
   .options {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     margin: 0;
     .option {
+      width: 100%;
       font-family: fonts.$mono-font;
       margin: 0;
       padding-bottom: 4px;
       .value {
-        &:not(:last-child)::after {
+        display: inline;
+        cursor: pointer;
+        &:not(:last-of-type)::after {
           content: '|';
           padding-left: 4px;
           padding-right: 4px;
+          background-color: colors.$form-input-bg;
           color: color.adjust(colors.$primary-fg, $alpha: -0.5);
           font-weight: fonts.$important-weight;
         }
@@ -100,15 +104,17 @@ const copyValue = (valueIndex) => {
   }
 }
 
-.tooltip {
-  z-index: -1;
-  visibility: none;
-  opacity: 0;
-  background-color: colors.$primary-fg;
-  color: colors.$primary-bg;
-  padding: 6px 10px;
-  border-radius: 4px;
-  font-size: 0.9em;
-  transition: opacity 0.2s ease-in-out;
-}
+// .tooltip {
+//   // z-index: ;
+//   // position: absolute;
+//   // display: none;
+//   opacity: 0;
+//   background-color: colors.$primary-fg;
+//   color: colors.$primary-bg;
+//   padding: 6px 10px;
+//   border-radius: 4px;
+//   font-size: 0.9em;
+//   transition: opacity 0.2s ease-in-out;
+//   width: fit-content;
+// }
 </style>
