@@ -21,9 +21,11 @@ module.exports = (_, argv) => ({
       'asset',
       'source',
       'asset/config',
+      'asset/image',
       'source/style',
       'source/page',
-      'source/component'
+      'source/component',
+      'source/util'
     ])
   },
 

@@ -5,22 +5,20 @@
 
     <div class="config-selector">
       <nav>
-        <a>СПБ и ЛО</a>
-        <a class="config-tab-selected">Архангельск</a>
-        <a>Вологда</a>
-        <a>Калининград</a>
-        <a>Карелия</a>
-        <a>Коми</a>
-        <a>Мурманск</a>
-        <a>Новгород</a>
-        <a>Псков</a>
+
+        <router-link
+            v-for="region in Object.entries(regions)"
+            :to="`/configurator/${region[0]}`">
+          {{ typo(region[1]) }}
+        </router-link>
+
       </nav>
       <div class="config-selected-container">
 
         <info-card
-            v-for="group in Object.keys(arkhangelsk)"
+            v-for="group in Object.keys(selectedCredentials)"
             :title="group"
-            :equipment="arkhangelsk[group]"/>
+            :equipment="selectedCredentials[group]"/>
 
       </div>
     </div>
@@ -30,13 +28,29 @@
 
 
 <script setup>
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+
 import InfoCard from 'component/configurator/info-card.vue'
 
+import typo from 'util/typo.js'
+
+import regions from 'config/configurator/regions.js'
 import arkhangelsk from 'config/configurator/arkhangelsk.js'
+import spb from 'config/configurator/spb.js'
+
+
+const regionCredentials = {
+  arkhangelsk,
+  spb
+}
+
+const selectedCredentials = computed(
+    () => regionCredentials[useRoute().params.region])
 </script>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 @use 'style/colors.scss';
 @use 'style/fonts.scss';
 
@@ -52,10 +66,16 @@ import arkhangelsk from 'config/configurator/arkhangelsk.js'
   .config-selected-container {
     padding: 20px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .router-link-active {
+    background-color: darken(colors.$config-select-tab-bg, 5);
+    cursor: default;
   }
 
   a {
+    text-decoration: none;
     display: inline-block;
     padding: 20px;
     flex: 1;
@@ -67,10 +87,6 @@ import arkhangelsk from 'config/configurator/arkhangelsk.js'
     user-select: none;
     &:hover {
       background-color: darken(colors.$config-select-tab-bg, 5);
-    }
-    &.config-tab-selected {
-      background-color: darken(colors.$config-select-tab-bg, 5);
-      cursor: default;
     }
     &:first-child {
       border-top-left-radius: 4px;

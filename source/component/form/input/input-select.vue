@@ -30,7 +30,7 @@
 import { ref } from 'vue'
 
 import normalizeOption from '../normalize-option.js'
-import typo from '../typo.js'
+import typo from 'util/typo.js'
 import inputLabel from './input-label.vue'
 
 

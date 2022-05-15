@@ -1,13 +1,16 @@
 <template>
   <div class="entry">
 
-    <p class="label">{{ label }}</p>
+    <p v-if="label.length > 0" class="label">{{ label }}</p>
     <div class="options">
 
       <p v-for="option in options" class="option">
-        <span v-for="value in option" class="value">
-          {{value}}
-        </span>
+        <template v-for="(value, i) in option">
+          <div class="tooltip" ref="tooltip">Скопировано</div>
+          <span class="value" ref="value" @click="(_) => copyValue(i)">
+            {{ value }}
+          </span>
+        </template>
       </p>
 
     </div>
@@ -17,6 +20,11 @@
 
 
 <script setup>
+import { ref, onMounted } from 'vue'
+import copyToClipboard from 'copy-to-clipboard'
+import { createPopper } from '@popperjs/core';
+
+
 defineProps({
   label: {
     type: String,
@@ -27,6 +35,27 @@ defineProps({
     required: true
   }
 })
+
+const tooltip = ref(null)
+const value = ref(null)
+
+onMounted(() =>
+    value.value.forEach((v, i) =>
+        createPopper(v, tooltip.value[i], {
+          placement: 'top'
+        })))
+
+const copyValue = (valueIndex) => {
+  copyToClipboard(value.value[valueIndex].textContent)
+
+  const tt = tooltip.value[valueIndex]
+  tt.style.opacity = 1
+  tt.style.zIndex = 1
+  setTimeout(() => {
+    tt.style.opacity = 0
+    setTimeout(() => tt.style.zIndex = -1, 200)
+  }, 400)
+}
 </script>
 
 
@@ -40,6 +69,7 @@ defineProps({
   display: flex;
   margin-top: 4px;
   margin-bottom: 4px;
+  padding: 0;
   .label {
     margin: 0;
     font-weight: fonts.$semibold-weight;
@@ -51,6 +81,7 @@ defineProps({
   .options {
     display: flex;
     flex-direction: column;
+    margin: 0;
     .option {
       font-family: fonts.$mono-font;
       margin: 0;
@@ -67,5 +98,17 @@ defineProps({
       
     }
   }
+}
+
+.tooltip {
+  z-index: -1;
+  visibility: none;
+  opacity: 0;
+  background-color: colors.$primary-fg;
+  color: colors.$primary-bg;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  transition: opacity 0.2s ease-in-out;
 }
 </style>

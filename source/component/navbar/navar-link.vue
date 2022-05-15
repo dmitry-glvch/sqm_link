@@ -32,8 +32,7 @@ const props = defineProps({
     required: true
   },
   label: String,
-  icon: String,
-  active: Boolean
+  icon: String
 })
 
 const isPresent = (stringPropValue) =>

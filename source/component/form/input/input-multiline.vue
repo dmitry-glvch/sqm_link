@@ -17,7 +17,8 @@
 
 <script setup>
 import { ref } from 'vue'
-import typo from '../typo.js'
+
+import typo from 'util/typo.js'
 import inputLabel from './input-label.vue'
 
 const props = defineProps({

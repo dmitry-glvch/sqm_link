@@ -10,9 +10,9 @@
 
 
 <script setup>
-import typo from '../typo.js'
+import typo from 'util/typo.js'
 
-const props = defineProps({
+defineProps({
   action: Function,
   caption: String
 })

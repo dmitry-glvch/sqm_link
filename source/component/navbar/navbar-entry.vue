@@ -1,5 +1,5 @@
 <template>
-<li :class="{ 'navbar__entry': true, 'active': active }">
+<li :class="{ 'navbar__entry': true }">
 
   <navbar-link
       :path="path"
@@ -9,11 +9,7 @@
   <div class="dropdown" v-if="sublinks?.length > 0">
     <ul>
 
-      <li v-for="link in sublinks"
-          :class="{
-            'navbar__entry': true,
-            'active': active
-          }">
+      <li v-for="link in sublinks" class="navbar__entry">
         <navbar-link
             :path="link.path"
             :label="link.label"
@@ -28,18 +24,14 @@
 
 
 <script setup>
-import { useRoute } from 'vue-router';
-
 import NavbarLink from './navar-link.vue'
 
-const props = defineProps({
+defineProps({
   path:     String,
   label:    String,
   icon:     String,
   sublinks: Array
 })
-
-console.log(useRoute().path, props.path)
 </script>
 
 
