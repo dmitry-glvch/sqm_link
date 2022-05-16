@@ -30,7 +30,7 @@ import SystemLink from 'component/systems/system-link.vue'
 <style scoped lang="scss">
 .system-list-card {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   gap: 10px;
   align-items: start;
   p {

@@ -1,7 +1,7 @@
 <template>
   <div class="system-link" @click.self="cardClickListener">
 
-    <div class="top-row">
+    <div class="top-row" @click.self="cardClickListener">
       <a ref="link" class="hlink" :href="href">
         {{ typo(label) }}
       </a>
@@ -82,6 +82,7 @@ const toggle = () => expanded.value = !expanded.value
       flex-grow: 1;
       color: colors.$link-fg;
       transition: color 0.15s ease-out;
+      max-width: 60%;
       &:hover {
         color: colors.$link-hover-fg;
       }

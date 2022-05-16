@@ -31,8 +31,8 @@ const router = createRouter({
 router.afterEach((to) => {
   nextTick(() => {
     document.title = `SQM Link | ${to.meta.title}`
-  });
-});
+  })
+})
 
 
 export default router

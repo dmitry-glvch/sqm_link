@@ -27,5 +27,6 @@ defineProps({
   width: fit-content;
   min-width: sizes.$form-button-min-width;
   height: sizes.$form-button-height;
+  cursor: pointer;
 }
 </style>
