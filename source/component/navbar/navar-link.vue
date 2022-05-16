@@ -61,7 +61,7 @@ const isActive = computed(
   transition: background-color 0.5s ease;
 
   .label {
-    color: colors.$link-fg;
+    color: colors.$header-link-fg;
   }
 
   .icon::before {
@@ -69,15 +69,15 @@ const isActive = computed(
   }
   &.active {
     .label {
-      color: colors.$link-active-fg;
+      color: colors.$header-link-active-fg;
     }
   }
 
   &:hover {
-    background-color: colors.$link-hover-bg;
+    background-color: colors.$header-link-hover-bg;
     cursor: pointer;
     .label, .icon::before {
-      color: colors.$link-hover-fg;
+      color: colors.$header-link-hover-fg;
     }
   }
 

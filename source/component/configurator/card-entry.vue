@@ -103,18 +103,4 @@ const copyValue = (event) => {
     }
   }
 }
-
-// .tooltip {
-//   // z-index: ;
-//   // position: absolute;
-//   // display: none;
-//   opacity: 0;
-//   background-color: colors.$primary-fg;
-//   color: colors.$primary-bg;
-//   padding: 6px 10px;
-//   border-radius: 4px;
-//   font-size: 0.9em;
-//   transition: opacity 0.2s ease-in-out;
-//   width: fit-content;
-// }
 </style>

@@ -15,15 +15,15 @@ $outline: color('vivid-mantis');
 $header-bg: color('ebony-clay');
 $header-fg: color('pale-blue-lily');
 
-$link-bg: $header-bg;
-$link-fg: $header-fg;
-$link-active-fg: darken($header-fg, 25);
-$link-hover-bg: lighten($header-bg, 5);
-$link-hover-fg: darken(color('white-soapstone'), 5);
+$header-link-bg: $header-bg;
+$header-link-fg: $header-fg;
+$header-link-active-fg: darken($header-fg, 25);
+$header-link-hover-bg: lighten($header-bg, 5);
+$header-link-hover-fg: darken(color('white-soapstone'), 5);
 
 $navigation-icon: color.adjust($header-fg, $alpha: -0.25);
-$navigation-icon-active: color.adjust($link-active-fg, $alpha: -0.25);
-$navigation-icon-hover: color.adjust($link-hover-fg, $alpha: -0.25);
+$navigation-icon-active: color.adjust($header-link-active-fg, $alpha: -0.25);
+$navigation-icon-hover: color.adjust($header-link-hover-fg, $alpha: -0.25);
 
 $form-input-bg: color('white-soapstone');
 $form-input-fg: $primary-fg;
@@ -41,6 +41,9 @@ $config-select-tab-bg: color('white-soapstone');
 $config-select-tab-fg: color('davys-grey');
 
 $card-bg: color('white-soapstone');
+
+$link-fg: color('prussian-blue');
+$link-hover-fg: lighten($link-fg, 15);
 
 $footer-bg: color('ebony-clay');
 $footer-fg: lighten(color('davys-grey'), 10);
