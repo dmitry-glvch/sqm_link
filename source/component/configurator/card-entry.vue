@@ -4,14 +4,15 @@
     <p v-if="label.length > 0" class="label">{{ label }}</p>
     <div class="options">
 
-      <p v-for="option in options" class="option">
-          <span
-              v-for="value in option"
-              class="value"
-              ref="value"
-              @click="copyValue">
-            {{ value }}
-          </span>
+      <p v-for="option in options" :key="option" class="option">
+        <span
+            v-for="value in option"
+            :key="value"
+            class="value"
+            ref="value"
+            @click="copyValue">
+          {{ value }}
+        </span>
       </p>
 
     </div>
@@ -21,9 +22,10 @@
 
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import tippy from 'tippy.js'
-import copyToClipboard from 'copy-to-clipboard'
+import { onMounted } from 'vue'
+
+import copyValue from 'util/copy-value.js'
+import createCopyTooltips from 'util/create-copy-tooltips.js'
 
 
 defineProps({
@@ -37,21 +39,7 @@ defineProps({
   }
 })
 
-let tooltip
-
-onMounted(() => tooltip = tippy('span.value', {
-  content: 'Скопировано',
-  trigger: 'click',
-  onShow(instance) {
-    setTimeout(() => {
-      instance.hide();
-    }, 500);
-  }
-}))
-
-const copyValue = (event) => {
-  copyToClipboard(event.target.textContent)
-}
+onMounted(() => createCopyTooltips('span.value'))
 </script>
 
 

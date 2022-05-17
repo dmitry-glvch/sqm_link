@@ -29,12 +29,13 @@ const routes = [
   },
 
   {
-    path: '/:macrobranch/systems',
+    path: '/:macrobranch/systems/:region?',
     name: 'systems',
     component: PageSystems,
     meta: {
       title: 'Инфосистемы'
-    }
+    },
+    props: true
   },
 
   {

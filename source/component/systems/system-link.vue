@@ -2,14 +2,26 @@
   <div class="system-link" @click.self="cardClickListener">
 
     <div class="top-row" @click.self="cardClickListener">
-      <a ref="link" class="hlink" :href="href">
+
+      <a ref="link" class="hlink" :href="path">
         {{ typo(label) }}
       </a>
-      <span
-          v-if="hasContent"
-          :class="[ 'fa-solid', 'button', buttonIcon ]"
-          @click="toggle">
-      </span>
+
+      <div>
+        <a v-if="hasInfo"
+            ref="info"
+            class="info"
+            :href="info">
+          <span class="fa-solid fa-book"></span>
+        </a>
+
+        <span
+            v-if="hasContent"
+            :class="[ 'fa-solid', 'button', buttonIcon ]"
+            @click="toggle">
+        </span>
+      </div>
+
     </div>
 
     <div
@@ -17,10 +29,15 @@
         class="content-box"
         ref="content"
         :style="{ maxHeight: contentMaxHeight }">
+      <div>
 
-        <div>
-          <slot/>
-        </div>
+        <system-link-detail
+            v-for="detail in normalizedDetails"
+            :key="detail"
+            :type="detail.type"
+            :value="detail.value"/>
+
+      </div>
     </div>
 
   </div>
@@ -28,36 +45,64 @@
 
 
 <script setup>
-import { ref, computed, useSlots, Comment } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+
+import tippy from 'tippy.js'
+
+import SystemLinkDetail from './system-link-detail.vue'
+import normalizeDetails from './normalize-detail.js'
+
 import typo from 'util/typo.js'
 
 
-defineProps({
-  href: String,
+const props = defineProps({
+  path: String,
   label: String,
-  collapsed: Boolean
+  hint: String,
+  info: String,
+  collapsed: {
+    type: Boolean,
+    default: true
+  },
+  details: Array
 })
+
+const hasContent = Boolean(props.details?.length > 0)
+const hasInfo = props.info !== undefined
+
+const normalizedDetails = props.details?.map(normalizeDetails)
+
 
 const link = ref(null)
 const content = ref(null)
+const info = ref(null)
 
-const hasContent =
-    useSlots().default?.()
-        ?.find(({ type }) => type !== Comment) !== undefined
+const expanded = ref(!props.collapsed)
+
+const toggle = () => expanded.value = !expanded.value
+
+const buttonIcon = computed(() =>
+    expanded.value ? 'fa-angle-up' : 'fa-angle-down')
+
+const contentMaxHeight = computed(() =>
+    expanded.value ? `${content.value.scrollHeight}px` : 0)
 
 const cardClickListener = !hasContent ?
     () => link.value.click() :
     () => toggle()
 
-let expanded = ref(false)
-
-const contentMaxHeight = computed(() =>
-    expanded.value ? `${content.value.scrollHeight}px` : 0)
-
-const buttonIcon = computed(() =>
-    expanded.value ? 'fa-angle-up' : 'fa-angle-down')
-
-const toggle = () => expanded.value = !expanded.value
+onMounted(() => {
+  hasInfo && tippy(info.value, {
+    content: 'Открыть инструкцию',
+    trigger: 'mouseenter',
+    delay: 500
+  })
+  props.hint && tippy(link.value, {
+    content: props.hint,
+    trigger: 'mouseenter',
+    delay: 500
+  })
+})
 </script>
 
 
@@ -79,17 +124,26 @@ const toggle = () => expanded.value = !expanded.value
       font-weight: fonts.$semibold-weight;
       text-decoration: none;
       font-size: 1.07em;
-      flex-grow: 1;
       color: colors.$link-fg;
       transition: color 0.15s ease-out;
-      min-width: 45%;
-      max-width: fit-content;
+
       &:hover {
         color: colors.$link-hover-fg;
       }
     }
-    .button {
-      padding: 10px 14px;
+    div {
+      display: flex;
+      align-items: center;
+      .button, .info {
+        padding: 10px 6px;
+        &:last-child {
+          padding: 10px 14px;
+        }
+        color: colors.$link-fg;
+        &:hover {
+          color: colors.$link-hover-fg;
+        }
+      }
     }
   }
 

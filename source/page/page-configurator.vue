@@ -36,6 +36,7 @@ import { useRoute, useRouter } from 'vue-router'
 import InfoCard from 'component/configurator/info-card.vue'
 
 import typo from 'util/typo.js'
+import gotoToDefaultRegion from 'util/goto-default-region.js'
 
 import macrobranches from 'config/branches.js'
 import regions from 'config/configurator/regions.js'
@@ -50,14 +51,8 @@ const props = defineProps({
   region: String
 })
 
-const regionSpecified = props.region?.length > 0 ? true : false
-if (!regionSpecified) {
-  const branches = macrobranches[props.macrobranch].branches
-  const defaultRegion = Object.keys(branches)[0]
-  const defaultPath =
-      `/${props.macrobranch}/configurator/${defaultRegion}`
-  useRouter().push(defaultPath)
-}
+
+!(props.region?.length > 0) && gotoToDefaultRegion()
 
 
 const regionCredentials = {
