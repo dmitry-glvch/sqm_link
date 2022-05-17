@@ -1,9 +1,9 @@
 import { createApp } from 'vue'
 
-import Page from './component/page.vue'
+import page from './component/page.vue'
 import router from './router.js'
 
 
-createApp(Page)
+createApp(page)
     .use(router)
     .mount('#app-mountpoint')

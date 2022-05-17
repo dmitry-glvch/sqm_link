@@ -3,7 +3,16 @@
 
     <h2>Инфосистемы</h2>
 
-    <div class="system-list-card">
+    <!-- <nav class="nav">
+      <router-link
+            v-for="region in Object.entries(regions)"
+            :key="region"
+            :to="`/${macrobranch}/configurator/${region[0]}`">
+          {{ typo(region[1]) }}
+        </router-link>
+    </nav> -->
+
+    <div class="system-list">
       <system-link
           path="https://vk.com"
           label="Лол"
@@ -37,9 +46,11 @@ import SystemLink from 'component/systems/system-link.vue'
 
 import gotoToDefaultRegion from 'util/goto-default-region.js'
 
+import northWestSystems from 'config/systems/north-west.js'
+
 
 const props = defineProps({
-  macrobranch: String,
+  branch: String,
   region: String
 })
 
@@ -50,7 +61,7 @@ const props = defineProps({
 
 
 <style scoped lang="scss">
-.system-list-card {
+.system-list {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   gap: 10px;

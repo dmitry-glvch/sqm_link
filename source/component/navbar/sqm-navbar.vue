@@ -2,6 +2,7 @@
   <div class="container navbar-container">
 
     <h1 class="title">SQM Link</h1>
+
     <nav>
       <ul class="navbar-link-list">
 
@@ -26,14 +27,14 @@ import { useRoute, useRouter } from 'vue-router'
 
 import NavbarEntry from 'component/navbar/navbar-entry.vue'
 
-import macrobranches from 'config/branches.js'
+import branches from 'config/branches.js'
 import navbarEntries from 'config/navbar-entries.js'
 
 await useRouter().isReady()
 
 
-const currentMacrobranch = computed(
-    () => useRoute().params.macrobranch)
+const currentBranch = computed(
+    () => useRoute().params.branch)
 
 
 const entries = computed(() => [
@@ -44,7 +45,7 @@ const entries = computed(() => [
     destination: {
       name: entry.name,
       params: {
-        macrobranch: currentMacrobranch.value
+        branch: currentBranch.value
       }
     }
   })),
@@ -52,15 +53,15 @@ const entries = computed(() => [
   {
     destination: '#',
     icon: 'fa-solid fa-earth-americas',
-    label: macrobranches[currentMacrobranch.value].title,
-    sublinks: Object.entries(macrobranches)
+    label: branches[currentBranch.value].title,
+    sublinks: Object.entries(branches)
         .map(([ code, { title } ]) => ({
           icon: 'fa-solid fa-caret-right',
           label: title,
           destination: {
             name: useRoute().name,
             params: {
-              macrobranch: code
+              branch: code
             }
           }
         }))

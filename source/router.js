@@ -9,7 +9,7 @@ import PageContacts from 'page/page-contacts.vue'
 import PageForms from 'page/page-forms.vue'
 import PageForm3ltp from 'page/forms/page-3ltp.vue'
 
-import macrobranches from 'config/branches.js'
+import branches from 'config/branches.js'
 
 
 const routes = [
@@ -20,7 +20,7 @@ const routes = [
   },
 
   {
-    path: '/:macrobranch/main',
+    path: '/:branch/main',
     name: 'main',
     component: PageMain,
     meta: {
@@ -29,7 +29,7 @@ const routes = [
   },
 
   {
-    path: '/:macrobranch/systems/:region?',
+    path: '/:branch/systems/:region?',
     name: 'systems',
     component: PageSystems,
     meta: {
@@ -39,7 +39,7 @@ const routes = [
   },
 
   {
-    path: '/:macrobranch/configurator/:region?',
+    path: '/:branch/configurator/:region?',
     name: 'configurator',
     component: PageConfigurator,
     meta: {
@@ -49,7 +49,7 @@ const routes = [
   },
 
   {
-    path: '/:macrobranch/instructions',
+    path: '/:branch/instructions',
     name: 'instructions',
     component: PageInstructions,
     meta: {
@@ -58,7 +58,7 @@ const routes = [
   },
 
   {
-    path: '/:macrobranch/contacts',
+    path: '/:branch/contacts',
     name: 'contacts',
     component: PageContacts,
     meta: {
@@ -67,7 +67,7 @@ const routes = [
   },
 
   {
-    path: '/:macrobranch/forms',
+    path: '/:branch/forms',
     name: 'forms',
     component: PageForms,
     meta: {

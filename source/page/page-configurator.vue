@@ -9,7 +9,7 @@
         <router-link
             v-for="region in Object.entries(regions)"
             :key="region"
-            :to="`/${macrobranch}/configurator/${region[0]}`">
+            :to="`/${branch}/configurator/${region[0]}`">
           {{ typo(region[1]) }}
         </router-link>
 
@@ -38,7 +38,7 @@ import InfoCard from 'component/configurator/info-card.vue'
 import typo from 'util/typo.js'
 import gotoToDefaultRegion from 'util/goto-default-region.js'
 
-import macrobranches from 'config/branches.js'
+import branches from 'config/branches.js'
 import regions from 'config/configurator/regions.js'
 import spb from 'config/configurator/spb.js'
 import arkhangelsk from 'config/configurator/arkhangelsk.js'
@@ -47,7 +47,7 @@ import kaliningrad from 'config/configurator/kaliningrad.js'
 
 
 const props = defineProps({
-  macrobranch: String,
+  branch: String,
   region: String
 })
 

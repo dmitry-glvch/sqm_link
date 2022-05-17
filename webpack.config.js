@@ -7,7 +7,7 @@ import { VueLoaderPlugin as VuePlugin } from 'vue-loader'
 import aliases from './webpack-aliases.js'
 
 
-export default (_, argv) => ({
+export default (_, args) => ({
 
   entry: {
     main: './source/main.js'
@@ -31,7 +31,7 @@ export default (_, argv) => ({
   },
 
 
-  devtool: argv.mode === 'development' ?
+  devtool: args.mode === 'development' ?
       'eval-source-map' :
       undefined,
 
