@@ -1,19 +1,20 @@
-const path = require('path')
+import { resolve } from 'path'
+import dirname from 'es-dirname'
 
-const HtmlPlugin = require('html-webpack-plugin')
-const VuePlugin = require('vue-loader').VueLoaderPlugin
+import HtmlPlugin from 'html-webpack-plugin'
+import { VueLoaderPlugin as VuePlugin } from 'vue-loader'
 
-const aliases = require('./webpack-aliases.js')
+import aliases from './webpack-aliases.js'
 
 
-module.exports = (_, argv) => ({
+export default (_, argv) => ({
 
   entry: {
     main: './source/main.js'
   },
 
   output: {
-    path: path.resolve(__dirname, 'build')
+    path: resolve(dirname(), 'build')
   },
 
   resolve: {
@@ -62,7 +63,7 @@ module.exports = (_, argv) => ({
 
       {
         test: /\.vue$/,
-        loader: 'vue-loader'
+        use: 'vue-loader'
       },
 
       {

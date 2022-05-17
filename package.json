@@ -1,6 +1,7 @@
 {
   "name": "sqm-link",
   "version": "1.0.0",
+  "type": "module",
   "author": "Dmitry Golovach <dmitry.glvch@gmail.com>",
   "private": true,
   "scripts": {
@@ -18,6 +19,7 @@
   },
   "devDependencies": {
     "css-loader": "^6.7.1",
+    "es-dirname": "^0.1.0",
     "html-webpack-plugin": "^5.5.0",
     "sass": "^1.51.0",
     "sass-loader": "^12.6.0",

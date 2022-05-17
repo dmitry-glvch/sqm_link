@@ -1,9 +1,10 @@
-const path = require('path')
+import { basename, resolve } from 'path'
+import dirname from 'es-dirname'
 
 
-module.exports = (relativePaths) =>
+export default (relativePaths) =>
     Object.fromEntries(
         relativePaths.map((relativePath) => [
-          path.basename(relativePath),
-          path.resolve(__dirname, relativePath)
+          basename(relativePath),
+          resolve(dirname(), relativePath)
         ] ))
