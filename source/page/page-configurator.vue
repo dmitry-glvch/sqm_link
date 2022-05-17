@@ -8,7 +8,8 @@
 
         <router-link
             v-for="region in Object.entries(regions)"
-            :to="`/configurator/${region[0]}`">
+            :key="region"
+            :to="`/${macrobranch}/configurator/${region[0]}`">
           {{ typo(region[1]) }}
         </router-link>
 
@@ -16,9 +17,10 @@
       <div class="config-selected-container">
 
         <info-card
-            v-for="group in Object.keys(selectedCredentials)"
+            v-for="(equipment, group) in selectedCredentials"
+            :key="group"
             :title="group"
-            :equipment="selectedCredentials[group]"/>
+            :equipment="equipment"/>
 
       </div>
     </div>
@@ -29,17 +31,33 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 import InfoCard from 'component/configurator/info-card.vue'
 
 import typo from 'util/typo.js'
 
+import macrobranches from 'config/branches.js'
 import regions from 'config/configurator/regions.js'
 import spb from 'config/configurator/spb.js'
 import arkhangelsk from 'config/configurator/arkhangelsk.js'
 import vologda from 'config/configurator/vologda.js'
 import kaliningrad from 'config/configurator/kaliningrad.js'
+
+
+const props = defineProps({
+  macrobranch: String,
+  region: String
+})
+
+const regionSpecified = props.region?.length > 0 ? true : false
+if (!regionSpecified) {
+  const branches = macrobranches[props.macrobranch].branches
+  const defaultRegion = Object.keys(branches)[0]
+  const defaultPath =
+      `/${props.macrobranch}/configurator/${defaultRegion}`
+  useRouter().push(defaultPath)
+}
 
 
 const regionCredentials = {
@@ -50,7 +68,7 @@ const regionCredentials = {
 }
 
 const selectedCredentials = computed(
-    () => regionCredentials[useRoute().params.region])
+    () => regionCredentials[props.region])
 </script>
 
 

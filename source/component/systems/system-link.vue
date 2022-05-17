@@ -82,7 +82,8 @@ const toggle = () => expanded.value = !expanded.value
       flex-grow: 1;
       color: colors.$link-fg;
       transition: color 0.15s ease-out;
-      max-width: 60%;
+      min-width: 45%;
+      max-width: fit-content;
       &:hover {
         color: colors.$link-hover-fg;
       }

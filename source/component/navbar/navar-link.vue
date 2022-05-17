@@ -1,19 +1,19 @@
 <template>
   <router-link
-      :to="path"
+      :to="destination"
       class="link"
       :class="{ 'active': isActive }">
 
     <span
-        v-if="isPresent(icon)"
+        v-if="icon?.length > 0"
         :class="[
           'icon',
           icon,
-          { 'labelPadding': isPresent(label) }
+          { 'labelPadding': label?.length > 0 }
         ]"
     ></span>
 
-    <span class="label" v-if="isPresent(label)">
+    <span class="label" v-if="label?.length > 0">
       {{ label }}
     </span>
 
@@ -27,17 +27,12 @@ import { useRoute } from 'vue-router'
 
 
 const props = defineProps({
-  path: {
-    type: String,
+  destination: {
     required: true
   },
   label: String,
   icon: String
 })
-
-const isPresent = (stringPropValue) =>
-    typeof stringPropValue === 'string' &&
-    stringPropValue.length > 0
 
 const isActive = computed(
     () => useRoute().path.startsWith(props.path))

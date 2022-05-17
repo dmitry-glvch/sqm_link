@@ -1,25 +1,30 @@
 <template>
-<li :class="{ 'navbar__entry': true }">
+  <li class="navbar-entry">
 
-  <navbar-link
-      :path="path"
-      :label="label"
-      :icon="icon"/>
+    <navbar-link
+        :destination="destination"
+        :label="label"
+        :icon="icon"/>
 
-  <div class="dropdown" v-if="sublinks?.length > 0">
-    <ul>
+    <div class="dropdown" v-if="sublinks?.length > 0">
+      <ul>
 
-      <li v-for="link in sublinks" class="navbar__entry">
-        <navbar-link
-            :path="link.path"
-            :label="link.label"
-            :icon="link.icon"/>
-      </li>
+        <li
+            v-for="link in sublinks"
+            :key="link"
+            class="navbar-entry">
 
-    </ul>
-  </div>
+          <navbar-link
+              :destination="link.destination"
+              :label="link.label"
+              :icon="link.icon"/>
 
-</li>
+        </li>
+
+      </ul>
+    </div>
+
+  </li>
 </template>
 
 
@@ -27,7 +32,9 @@
 import NavbarLink from './navar-link.vue'
 
 defineProps({
-  path:     String,
+  destination: {
+    required: true
+  },
   label:    String,
   icon:     String,
   sublinks: Array
@@ -40,7 +47,7 @@ defineProps({
 @use 'style/sizes.scss';
 
 
-.navbar__entry {
+.navbar-entry {
 
   display: inline-block;
   position: relative;
@@ -64,11 +71,15 @@ defineProps({
     position: absolute;
     left: 0;
 
+    border-bottom-left-radius: sizes.$default-border-radius;
+    border-bottom-right-radius: sizes.$default-border-radius;
+    box-shadow: 0px 2px 10px #00000088;
+
     ul {
       padding: 0;
     }
 
-    .navbar__entry {
+    .navbar-entry {
 
       clear: both;
       display: block;

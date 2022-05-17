@@ -4,4 +4,6 @@ import Page from './component/page.vue'
 import router from './router.js'
 
 
-createApp(Page).use(router).mount('#app-mountpoint')
+createApp(Page)
+    .use(router)
+    .mount('#app-mountpoint')
