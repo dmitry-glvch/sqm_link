@@ -2,39 +2,17 @@
   <div class="container">
 
     <h2>Инфосистемы</h2>
-
-    <!-- <nav class="nav">
-      <router-link
-            v-for="region in Object.entries(regions)"
-            :key="region"
-            :to="`/${macrobranch}/configurator/${region[0]}`">
-          {{ typo(region[1]) }}
-        </router-link>
-    </nav> -->
+    <region-navbar class="navbar" :regions="navbarRegions"/>
 
     <div class="system-list">
       <system-link
-          path="https://vk.com"
-          label="Лол"
-          hint="Мамку ебал"
-          info="https://google.com"
-          :details="[ 'kek' ]"/>
-      <system-link
-          path="https://vk.com"
-          label="BWP"
-          :details="[
-            { type: 'login', value: 'sz-otpkk' },
-            { type: 'password', value: 'Vavbyun2' }
-          ]"/>
-      <system-link
-          path="https://vk.com"
-          label="MRTG"
-          info="https://google.com"
-          hint="dibun edition"/>
-      <system-link path="https://vk.com" label="Аргус"/>
-      <system-link path="https://vk.com" label="ЕСУЗ"/>
-      <system-link path="https://vk.com" label="Гермес"/>
-      <system-link path="https://vk.com" label="Axiros SBA"/>
+          v-for="system in links"
+          :key="system.path"
+          :path="system.path"
+          :label="system.label"
+          :hint="system.hint"
+          :info="system.info"
+          :details="system.details"/>
     </div>
 
   </div>
@@ -42,29 +20,53 @@
 
 
 <script setup>
+import { computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+
+import RegionNavbar from 'component/region-navbar/region-navbar.vue'
 import SystemLink from 'component/systems/system-link.vue'
 
-import gotoToDefaultRegion from 'util/goto-default-region.js'
+import gotoRegion from 'util/goto-region.js'
 
-import northWestSystems from 'config/systems/north-west.js'
-
-
-const props = defineProps({
-  branch: String,
-  region: String
-})
-
-!(props.region?.length > 0) && gotoToDefaultRegion()
+import northWest from 'config/systems/north-west.js'
+import volga from 'config/systems/volga.js'
 
 
+const systems = {
+  'north-west': northWest,
+  volga
+}
+
+const branch = computed(() => useRoute().params.branch)
+const region = computed(() => useRoute().params.region)
+
+const currentSystems = computed(() =>
+    systems[branch.value])
+
+!region.value && gotoRegion(Object.keys(currentSystems.value)[0])
+
+
+const navbarRegions = computed(() =>
+    Object.fromEntries(
+        Object.entries(currentSystems.value)
+            .map(([ region, { label } ]) => [ region, label ])) )
+
+const links = computed(() =>
+    currentSystems.value[region.value]?.links)
 </script>
 
 
 <style scoped lang="scss">
-.system-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  gap: 10px;
-  align-items: start;
+.container {
+  .navbar {
+    margin-bottom: 20px;
+  }
+  .system-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    align-items: start;
+  }
 }
+
 </style>

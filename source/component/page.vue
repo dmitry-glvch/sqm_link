@@ -9,7 +9,7 @@
 
     <main class="main">
       <suspense>
-        <router-view/>
+        <router-view :key="path"/>
       </suspense>
     </main>
 
@@ -22,8 +22,14 @@
 
 
 <script setup>
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+
 import SqmNavbar from './navbar/sqm-navbar.vue'
 import SqmFooter from './sqm-footer.vue'
+
+
+const path = computed(() => useRoute().path)
 </script>
 
 

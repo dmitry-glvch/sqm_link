@@ -25,6 +25,13 @@ $navigation-icon: color.adjust($header-fg, $alpha: -0.25);
 $navigation-icon-active: color.adjust($header-link-active-fg, $alpha: -0.25);
 $navigation-icon-hover: color.adjust($header-link-hover-fg, $alpha: -0.25);
 
+$region-nav-link-fg: color('pale-blue-lily');
+$region-nav-link-bg: color.scale(color('blue-whale'), $saturation: -50%);
+$region-nav-link-hover-bg: lighten($region-nav-link-bg, 10);
+$region-nav-link-active-fg: $region-nav-link-bg;
+$region-nav-link-active-bg: transparent;
+$region-nav-link-active-border: $region-nav-link-bg;
+
 $form-input-bg: color('white-soapstone');
 $form-input-fg: $primary-fg;
 $form-input-label-fg: color('davys-grey');

@@ -2,27 +2,14 @@
   <div class="container">
 
     <h2>Конфигуратор</h2>
+    <region-navbar class="region-navbar" :regions="regions"/>
 
-    <div class="config-selector">
-      <nav>
-
-        <router-link
-            v-for="region in Object.entries(regions)"
-            :key="region"
-            :to="`/${branch}/configurator/${region[0]}`">
-          {{ typo(region[1]) }}
-        </router-link>
-
-      </nav>
-      <div class="config-selected-container">
-
-        <info-card
-            v-for="(equipment, group) in selectedCredentials"
-            :key="group"
-            :title="group"
-            :equipment="equipment"/>
-
-      </div>
+    <div class="selected-config">
+      <info-card
+          v-for="(equipment, group) in selectedCredentials"
+          :key="group"
+          :title="group"
+          :equipment="equipment"/>
     </div>
 
   </div>
@@ -31,14 +18,13 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 
+import RegionNavbar from 'component/region-navbar/region-navbar.vue'
 import InfoCard from 'component/configurator/info-card.vue'
 
-import typo from 'util/typo.js'
 import gotoToDefaultRegion from 'util/goto-default-region.js'
 
-import branches from 'config/branches.js'
 import regions from 'config/configurator/regions.js'
 import spb from 'config/configurator/spb.js'
 import arkhangelsk from 'config/configurator/arkhangelsk.js'
@@ -46,13 +32,9 @@ import vologda from 'config/configurator/vologda.js'
 import kaliningrad from 'config/configurator/kaliningrad.js'
 
 
-const props = defineProps({
-  branch: String,
-  region: String
-})
+const region = computed(() => useRoute().params.region)
 
-
-!(props.region?.length > 0) && gotoToDefaultRegion()
+!(region.value?.length > 0) && gotoToDefaultRegion()
 
 
 const regionCredentials = {
@@ -63,7 +45,7 @@ const regionCredentials = {
 }
 
 const selectedCredentials = computed(
-    () => regionCredentials[props.region])
+    () => regionCredentials[region.value])
 </script>
 
 
@@ -72,46 +54,16 @@ const selectedCredentials = computed(
 @use 'style/fonts.scss';
 
 
-.config-selector {
+.region-navbar {
+  margin-bottom: 20px;
+}
+
+.selected-config {
   background: colors.$card-bg;
   border-radius: 4px;
 
-  nav {
-    display: flex;
-  }
-
-  .config-selected-container {
-    padding: 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .router-link-active {
-    background-color: darken(colors.$config-select-tab-bg, 5);
-    cursor: default;
-  }
-
-  a {
-    text-decoration: none;
-    display: inline-block;
-    padding: 20px;
-    flex: 1;
-    text-align: center;
-    background-color: colors.$config-select-tab-bg;
-    transition: background-color 0.25s ease-out;
-    color: colors.$config-select-tab-fg;
-    cursor: pointer;
-    user-select: none;
-    &:hover {
-      background-color: darken(colors.$config-select-tab-bg, 5);
-    }
-    &:first-child {
-      border-top-left-radius: 4px;
-    }
-    &:last-child {
-      border-top-right-radius: 4px;
-    }
-  }
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 </style>
-
