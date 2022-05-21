@@ -21,21 +21,15 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 
 import RegionNavbar from 'component/region-navbar/region-navbar.vue'
 import SystemLink from 'component/systems/system-link.vue'
 
 import gotoRegion from 'util/goto-region.js'
 
-import northWest from 'config/systems/north-west.js'
-import volga from 'config/systems/volga.js'
+import systems from 'config/systems/systems.js'
 
-
-const systems = {
-  'north-west': northWest,
-  volga
-}
 
 const branch = computed(() => useRoute().params.branch)
 const region = computed(() => useRoute().params.region)

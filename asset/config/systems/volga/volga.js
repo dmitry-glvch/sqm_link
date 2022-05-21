@@ -6,8 +6,10 @@ export default [
     details: [
       { type: 'login', value: 'MRF_Monitoring'},
       { type: 'password', value: 'MRFMon' },
+      String.fromCharCode(160),
       { type: 'login', value: 'MRF_OTPKK1'},
       { type: 'password', value: 'otpkk_1' },
+      String.fromCharCode(160),
       'саси'
     ]
   },

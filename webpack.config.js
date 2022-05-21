@@ -1,20 +1,24 @@
 import { resolve } from 'path'
+
 import dirname from 'es-dirname'
+
+import webpack from 'webpack'
 
 import HtmlPlugin from 'html-webpack-plugin'
 import { VueLoaderPlugin as VuePlugin } from 'vue-loader'
+import CssExtractPlugin from 'mini-css-extract-plugin'
+import FileManagerPlugin from 'filemanager-webpack-plugin'
 
-import aliases from './webpack-aliases.js'
+import { aliases, replacements } from './webpack-helpers.js'
+import branches from './branches.js'
 
 
-export default (_, args) => ({
+export default (env, args) => ({
 
-  entry: {
-    main: './source/main.js'
-  },
+  entry: './source/main.js',
 
   output: {
-    path: resolve(dirname(), 'build')
+    path: resolve(dirname(), `build/${env.branch}`)
   },
 
   resolve: {
@@ -32,7 +36,7 @@ export default (_, args) => ({
 
 
   devtool: args.mode === 'development' ?
-      'eval-source-map' :
+      'source-map' :
       undefined,
 
   devServer: {
@@ -49,11 +53,34 @@ export default (_, args) => ({
 
     new HtmlPlugin({
       template: 'source/page-template.html',
-      filename: 'index.html',
-      title: 'SQM Link',
+      filename: 'index.html'
     }),
 
-    new VuePlugin()
+    new VuePlugin(),
+
+    new CssExtractPlugin(),
+
+    new webpack.DefinePlugin({
+      defaultRoute: JSON.stringify(
+          `/${env.branch === 'super' ? 'north-west' : env.branch}/main`),
+      branchNavigation: JSON.stringify(env.branch === 'super'),
+      branches: JSON.stringify(
+          env.branch === 'super' ? branches : [ env.branch ])
+    }),
+
+    ...replacements(env.branch)([
+      'config/systems/systems.js'
+    ]),
+
+    new FileManagerPlugin ({
+      events: {
+        onEnd: {
+          delete: [
+            `build/${env.branch}/*LICENSE*.txt`
+          ]
+        }
+      }
+    })
 
   ],
 
@@ -69,7 +96,9 @@ export default (_, args) => ({
       {
         test: /\.s[ac]ss$/,
         use: [
-          'vue-style-loader',
+          args.mode === 'production' ?
+              CssExtractPlugin.loader :
+              'vue-style-loader',
           'css-loader',
           'sass-loader'
         ]

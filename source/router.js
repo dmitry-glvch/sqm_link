@@ -9,12 +9,14 @@ import PageContacts from 'page/page-contacts.vue'
 import PageForms from 'page/page-forms.vue'
 import PageForm3ltp from 'page/forms/page-3ltp.vue'
 
+import config from 'source/config.js'
+
 
 const routes = [
 
   {
     path: '/',
-    redirect: '/north-west/main'
+    redirect: config.defaultRoute
   },
 
   {

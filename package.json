@@ -1,12 +1,15 @@
 {
   "name": "sqm-link",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "type": "module",
   "author": "Dmitry Golovach <dmitry.glvch@gmail.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack serve --mode development",
-    "build": "webpack --mode production"
+    "help": "node build.js help",
+    "serve": "node build.js serve",
+    "build:all": "node build.js build --all",
+    "build:branches": "node build.js build --branches",
+    "build": "node build.js build"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.1.1",
@@ -18,9 +21,12 @@
     "vue-router": "^4.0.15"
   },
   "devDependencies": {
+    "commander": "^9.2.0",
     "css-loader": "^6.7.1",
     "es-dirname": "^0.1.0",
+    "filemanager-webpack-plugin": "^7.0.0-beta.0",
     "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.0",
     "sass": "^1.51.0",
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",
