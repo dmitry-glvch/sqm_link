@@ -2,7 +2,9 @@
   <div class="container">
 
     <h2>Конфигуратор</h2>
-    <region-navbar class="region-navbar" :regions="regions"/>
+    <region-navbar
+        class="region-navbar"
+        :regions="navbarRegions"/>
 
     <div class="selected-config">
       <info-card
@@ -25,27 +27,27 @@ import InfoCard from 'component/configurator/info-card.vue'
 
 import gotoToDefaultRegion from 'util/goto-default-region.js'
 
-import regions from 'config/configurator/regions.js'
-import spb from 'config/configurator/spb.js'
-import arkhangelsk from 'config/configurator/arkhangelsk.js'
-import vologda from 'config/configurator/vologda.js'
-import kaliningrad from 'config/configurator/kaliningrad.js'
+import credentials from 'config/configurator/configurator.js'
 
 
+const branch = computed(() => useRoute().params.branch)
 const region = computed(() => useRoute().params.region)
+
+const branchCredentials = computed(() =>
+    credentials[branch.value])
 
 !(region.value?.length > 0) && gotoToDefaultRegion()
 
 
-const regionCredentials = {
-  spb,
-  arkhangelsk,
-  vologda,
-  kaliningrad
-}
+const navbarRegions = computed(() =>
+    Object.fromEntries(
+        Object.entries(branchCredentials.value ?? {})
+            .map(([ region, { label } ]) => [ region, label ])) )
 
 const selectedCredentials = computed(
-    () => regionCredentials[region.value])
+    () => branchCredentials.value?.[region.value]?.credentials)
+
+console.log('selected', selectedCredentials.value)
 </script>
 
 

@@ -12,9 +12,14 @@ export const aliases = (relativePaths) =>
           resolve(dir(), relativePath)
         ] ))
   
-export const replacements = (branch) => (paths) =>
-    paths.map((path) =>
-        new webpack.NormalModuleReplacementPlugin(
-          new RegExp(`^${path}$`),
-          `${dirname(path)}/${branch}/${basename(path)}`
-        ))
+export const replacements = (branch) => (modules) =>
+    modules
+        .map((module) => ({
+          target: `config/${module}/${module}.js`,
+          replacement: `config/${module}/${branch}/${module}.js`
+        }))
+        .map(({ target, replacement }) =>
+            new webpack.NormalModuleReplacementPlugin(
+              new RegExp(target),
+              replacement
+            ))

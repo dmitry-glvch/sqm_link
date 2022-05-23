@@ -69,7 +69,8 @@ export default (env, args) => ({
     }),
 
     ...replacements(env.branch)([
-      'config/systems/systems.js'
+      'systems',
+      'configurator'
     ]),
 
     new FileManagerPlugin ({
