@@ -17,13 +17,13 @@ program.command('serve')
 program.command('build')
     .description('собрать проект для отправки пользователям')
     .addOption(new Option(
-        '--all', 'все МРФы и объединённая версия')
+        '--all', 'все МРФы и премиум-версия')
         .conflicts([ 'branches', 'super', 'branch' ]))
     .addOption(new Option(
         '--branches', 'все МРФы')
         .conflicts([ 'all', 'super', 'branch' ]))
     .addOption(new Option(
-        '--super', 'объединённая версия')
+        '--super', 'премиум-версия')
         .conflicts([ 'all', 'branches', 'branch' ]))
     .addOption(new Option(
         '--branch <branch>', 'выбранный МРФ ')
