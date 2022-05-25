@@ -7,11 +7,18 @@
         :regions="navbarRegions"/>
 
     <div class="selected-config">
-      <info-card
-          v-for="(equipment, group) in selectedCredentials"
-          :key="group"
-          :title="group"
-          :equipment="equipment"/>
+      <column-layout
+          :column-count="2"
+          :items="Object.entries(selectedCredentials ?? {})">
+        <template v-slot:default="{item}">
+
+        <info-card
+            :key="item[0]"
+            :title="item[0]"
+            :equipment="item[1]"/>
+
+        </template>
+      </column-layout>
     </div>
 
   </div>
@@ -23,6 +30,7 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 import RegionNavbar from 'component/region-navbar/region-navbar.vue'
+import ColumnLayout from 'layout/column-layout.vue'
 import InfoCard from 'component/configurator/info-card.vue'
 
 import gotoToDefaultRegion from 'util/goto-default-region.js'
@@ -46,8 +54,6 @@ const navbarRegions = computed(() =>
 
 const selectedCredentials = computed(
     () => branchCredentials.value?.[region.value]?.credentials)
-
-console.log('selected', selectedCredentials.value)
 </script>
 
 

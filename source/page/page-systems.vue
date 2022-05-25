@@ -4,16 +4,18 @@
     <h2>Инфосистемы</h2>
     <region-navbar class="navbar" :regions="navbarRegions"/>
 
-    <div class="system-list">
+    <column-layout :column-count="4" :items="links ?? []">
+      <template v-slot:default="{item}">
+
       <system-link
-          v-for="system in links"
-          :key="system.path"
-          :path="system.path"
-          :label="system.label"
-          :hint="system.hint"
-          :info="system.info"
-          :details="system.details"/>
-    </div>
+          :path="item.path"
+          :label="item.label"
+          :hint="item.hint"
+          :info="item.info"
+          :details="item.details"/>
+
+      </template>
+    </column-layout>
 
   </div>
 </template>
@@ -24,6 +26,7 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 import RegionNavbar from 'component/region-navbar/region-navbar.vue'
+import ColumnLayout from 'layout/column-layout.vue'
 import SystemLink from 'component/systems/system-link.vue'
 
 import gotoRegion from 'util/goto-region.js'

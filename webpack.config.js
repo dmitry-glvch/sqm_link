@@ -30,6 +30,7 @@ export default (env, args) => ({
       'source/style',
       'source/page',
       'source/component',
+      'source/component/layout',
       'source/util'
     ])
   },
@@ -95,7 +96,7 @@ export default (env, args) => ({
       },
 
       {
-        test: /\.s[ac]ss$/,
+        test: /\.(css|sass|scss)$/,
         use: [
           args.mode === 'production' ?
               CssExtractPlugin.loader :
