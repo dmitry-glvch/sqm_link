@@ -62,7 +62,7 @@ const isActive = computed(
   .icon::before {
     color: colors.$navigation-icon;
   }
-  &.active {
+  &.router-link-active {
     .label {
       color: colors.$header-link-active-fg;
     }

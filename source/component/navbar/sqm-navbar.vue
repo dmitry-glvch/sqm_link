@@ -16,6 +16,7 @@
 
         <navbar-entry
             v-if="config.branchNavigation"
+            class="region-select-link"
             destination="#"
             icon="fa-solid fa-earth-americas"
             :label="branches[currentBranch].title"
@@ -109,5 +110,11 @@ const branchNavigationSublinks = computed(() =>
 .dropdown a .fa-caret-right::before {
   font-size: 0.8em;
   margin-right: 6px;
-} 
+}
+
+.region-select-link > .router-link-active:only-of-type {
+  .label {
+    color: colors.$header-link-fg;
+  }
+}
 </style>
