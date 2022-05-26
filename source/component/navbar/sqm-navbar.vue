@@ -76,15 +76,16 @@ const branchNavigationSublinks = computed(() =>
 @use 'style/colors.scss';
 
 
-:root {
-  --display-heading: inline;
-}
+// :root {
+//   --display-heading: inline;
+// }
 
 
 .navbar-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 30px;
 
   font-size: 1.2rem;
   font-weight: fonts.$semibold-weight;
@@ -93,15 +94,20 @@ const branchNavigationSublinks = computed(() =>
 }
 
 .title {
-  display: var(--display-heading);
+  display: inline;
+  @media screen and (max-width: 1400px) {
+    display: none;
+  }
   margin: 0;
-  padding-right: 50px;
   font-size: 1.3rem;
+  white-space: nowrap;
+  width: fit-content;
 }
 
 .navbar-link-list {
-  display: inline-flex;
+  display: flex;
   margin: 0;
+  padding: 0;
   flex-wrap: wrap;
   justify-content: center;
   list-style: none;

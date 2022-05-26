@@ -10,7 +10,7 @@ export default {
   },
 
   'FTTB': {
-    'D-link DES 1228/1210/3200:': [[ 'SZTSA', 'SZTSA', 'SZTSA' ]],
+    'D-link DES 1228/1210/3200': [[ 'SZTSA', 'SZTSA', 'SZTSA' ]],
     'D-link DES 1100/1210': [[ 'admin', '999897' ]],
     'C4900': [[ 'SZTSA', 'SZTSA', 'SZTSA' ]],
     'ERX1440': [[ 'admin', '999897', 'danno8', 'admin' ]],

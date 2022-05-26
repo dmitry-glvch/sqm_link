@@ -33,7 +33,7 @@ import RegionNavbar from 'component/region-navbar/region-navbar.vue'
 import ColumnLayout from 'layout/column-layout.vue'
 import InfoCard from 'component/configurator/info-card.vue'
 
-import gotoToDefaultRegion from 'util/goto-default-region.js'
+import gotoDefaultRegion from 'util/goto-default-region.js'
 
 import credentials from 'config/configurator/configurator.js'
 
@@ -44,7 +44,7 @@ const region = computed(() => useRoute().params.region)
 const branchCredentials = computed(() =>
     credentials[branch.value])
 
-!(region.value?.length > 0) && gotoToDefaultRegion()
+!(region.value?.length > 0) && gotoDefaultRegion()
 
 
 const navbarRegions = computed(() =>
