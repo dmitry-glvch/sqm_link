@@ -2,12 +2,12 @@
   <div class="column-layout">
 
     <div
-        v-for="(columnIndexes, j) in itemIndexesByColumn"
-        :key="j"
+        v-for="(colIndices, colIndex) in indicesByCol.value"
+        :key="colIndex"
         class="column">
 
       <template
-          v-for="itemIndex in columnIndexes" :key="itemIndex">
+          v-for="itemIndex in colIndices.value" :key="itemIndex">
 
         <slot :item="items[itemIndex]">
           {{items[itemIndex]}}
@@ -22,6 +22,8 @@
 
 
 <script setup>
+import { reactive, onMounted, onBeforeUnmount } from 'vue'
+
 const props = defineProps({
   columnCount: {
     type: Number,
@@ -33,12 +35,40 @@ const props = defineProps({
   }
 })
 
-const itemIndexesByColumn =
-    [...Array(props.columnCount)].map(() => [])
 
-props.items.forEach((_, itemIndex) => 
-    itemIndexesByColumn[itemIndex % props.columnCount]
-        .push(itemIndex))
+let indicesByCol = reactive({ value: [] })
+let colCount = props.columnCount
+
+const calcColCount = () =>
+    (window?.innerWidth < 700) ? 2 : props.columnCount
+
+const redraw = () => {
+
+  indicesByCol.value =
+      Array.from({ length: colCount },
+          () => reactive({ value: [] }))
+
+  props.items.forEach((_, itemIndex) =>
+      indicesByCol.value[itemIndex % colCount]
+          .value.push(itemIndex))
+
+}
+
+const resizeListener = () => {
+  const newColCount = calcColCount()
+  if (colCount !== newColCount) {
+    colCount = newColCount
+    redraw()
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('resize', resizeListener)
+  redraw()
+})
+
+onBeforeUnmount(() =>
+    window.removeEventListener('resize', resizeListener))
 </script>
 
 

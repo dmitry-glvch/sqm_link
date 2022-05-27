@@ -8,11 +8,11 @@
       <template v-slot:default="{item}">
 
       <system-link
-          :path="item.path"
-          :label="item.label"
-          :hint="item.hint"
-          :info="item.info"
-          :details="item.details"/>
+          :path="item?.path"
+          :label="item?.label"
+          :hint="item?.hint"
+          :info="item?.info"
+          :details="item?.details"/>
 
       </template>
     </column-layout>
