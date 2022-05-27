@@ -44,13 +44,20 @@ const isActive = computed(
 
 .link {
 
-  $horizontal-padding: 20px;
-  display: inline-block;
-  text-decoration: none;
-  padding: 16px $horizontal-padding;
-  width: calc(100% - 2 * $horizontal-padding);
+  --horizontal-padding: 20px;
+  --icons-display: inline;
 
-  font-size: 1.1rem;
+  @media screen and (max-width: 1100px) {
+    --horizontal-padding: 10px;
+    --icons-display: none;
+  }
+
+  display: block;
+  text-decoration: none;
+  padding: 16px var(--horizontal-padding);
+  width: var(--link-width);
+
+  font-size: 1rem;
 
   transition: color 0.2s ease;
   transition: background-color 0.5s ease;
@@ -60,15 +67,17 @@ const isActive = computed(
   }
 
   .icon::before {
+    display: var(--icons-display);
     color: colors.$navigation-icon;
   }
   &.router-link-active {
+    cursor: default;
     .label {
       color: colors.$header-link-active-fg;
     }
   }
 
-  &:hover {
+  &:not(.router-link-active):hover {
     background-color: colors.$header-link-hover-bg;
     cursor: pointer;
     .label, .icon::before {

@@ -76,9 +76,17 @@ const branchNavigationSublinks = computed(() =>
 @use 'style/colors.scss';
 
 
-// :root {
-//   --display-heading: inline;
-// }
+.navbar-container {
+
+  --title-display: inline;
+  --link-list-justify: flex-end;
+
+  @media screen and (max-width: 1400px) {
+    --title-display: none;
+    --link-list-justify: center;
+  }
+
+}
 
 
 .navbar-container {
@@ -87,29 +95,26 @@ const branchNavigationSublinks = computed(() =>
   align-items: center;
   gap: 30px;
 
-  font-size: 1.2rem;
-  font-weight: fonts.$semibold-weight;
-
   user-select: none;
+  nav {
+    width: 100%;
+  }
 }
 
 .title {
-  display: inline;
-  @media screen and (max-width: 1400px) {
-    display: none;
-  }
+  display: var(--title-display);
   margin: 0;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   white-space: nowrap;
   width: fit-content;
 }
 
 .navbar-link-list {
   display: flex;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: var(--link-list-justify);
   list-style: none;
 }
 
