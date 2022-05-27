@@ -48,12 +48,13 @@ const entries = computed(() =>
     navbarEntries.map((entry) => ({
       label: entry.label,
       icon: entry.icon,
-      destination: {
+      destination: entry.path ?? {
         name: entry.name,
         params: {
           branch: currentBranch.value
         }
-      }
+      },
+      sublinks: entry.sublinks
     })))
 
 const branchNavigationSublinks = computed(() =>
@@ -81,9 +82,9 @@ const branchNavigationSublinks = computed(() =>
   --title-display: inline;
   --link-list-justify: flex-end;
 
-  @media screen and (max-width: 1400px) {
+  @media screen and (max-width: 1300px) {
     --title-display: none;
-    --link-list-justify: center;
+    --link-list-justify: space-between;
   }
 
 }

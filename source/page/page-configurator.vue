@@ -71,7 +71,6 @@ const selectedCredentials = computed(
   border-radius: 4px;
 
   padding: 20px;
-  display: grid;
   grid-template-columns: 1fr 1fr;
 }
 </style>

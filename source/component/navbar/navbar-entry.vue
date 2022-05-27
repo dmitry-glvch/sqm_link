@@ -6,7 +6,7 @@
         :label="label"
         :icon="icon"/>
 
-    <div class="dropdown" v-if="sublinks?.length > 0">
+    <div v-if="sublinks?.length > 0" class="dropdown">
       <ul>
 
         <li
@@ -15,7 +15,7 @@
             class="navbar-entry">
 
           <navbar-link
-              :destination="link.destination"
+              :destination="link.path ?? link.destination"
               :label="link.label"
               :icon="link.icon"/>
 
@@ -70,6 +70,8 @@ defineProps({
 
     position: absolute;
     left: 0;
+    // left: calc(0 - )
+    // position: relative;
 
     border-bottom-left-radius: sizes.$default-border-radius;
     border-bottom-right-radius: sizes.$default-border-radius;
@@ -95,6 +97,10 @@ defineProps({
       &:last-of-type {
         border-bottom-left-radius: sizes.$default-border-radius;
         border-bottom-right-radius: sizes.$default-border-radius;
+        a {
+          border-bottom-left-radius: sizes.$default-border-radius;
+          border-bottom-right-radius: sizes.$default-border-radius;
+        }
       }
 
     }

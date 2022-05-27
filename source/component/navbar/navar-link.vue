@@ -47,7 +47,7 @@ const isActive = computed(
   --horizontal-padding: 20px;
   --icons-display: inline;
 
-  @media screen and (max-width: 1100px) {
+  @media screen and (max-width: 1300px) {
     --horizontal-padding: 10px;
     --icons-display: none;
   }

@@ -17,16 +17,16 @@ export default [
     icon: 'fa-solid fa-table',
     label: 'Формы',
     sublinks: [
-      // {
-      //   path: '/forms/3ltp',
-      //   icon: 'fa-solid fa-caret-right',
-      //   label: 'Оформление выезда'
-      // },
-      // {
-      //   path: '#',
-      //   icon: 'fa-solid fa-caret-right',
-      //   label: 'Передать ПМ'
-      // }
+      {
+        path: '/north-west/forms/3ltp',
+        icon: 'fa-solid fa-caret-right',
+        label: 'Оформление выезда'
+      },
+      {
+        path: '/clem',
+        icon: 'fa-solid fa-caret-right',
+        label: 'Передать ПМ'
+      }
     ]
   },
 
