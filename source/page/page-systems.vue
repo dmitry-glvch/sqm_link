@@ -1,18 +1,20 @@
 <template>
-  <div class="container">
+  <div class="container" ref="container">
 
     <h2>Инфосистемы</h2>
     <region-navbar class="navbar" :regions="navbarRegions"/>
 
-    <column-layout :column-count="4" :items="links ?? []">
+    <column-layout
+        :column-count="columnCount"
+        :items="links ?? []">
       <template v-slot:default="{item}">
 
       <system-link
-          :path="item?.path"
-          :label="item?.label"
-          :hint="item?.hint"
-          :info="item?.info"
-          :details="item?.details"/>
+          :path="item.path"
+          :label="item.label"
+          :hint="item.hint"
+          :info="item.info"
+          :details="item.details"/>
 
       </template>
     </column-layout>
@@ -22,7 +24,7 @@
 
 
 <script setup>
-import { computed } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useRoute } from 'vue-router'
 
 import RegionNavbar from 'component/region-navbar/region-navbar.vue'
@@ -50,6 +52,16 @@ const navbarRegions = computed(() =>
 
 const links = computed(() =>
     currentSystems.value[region.value]?.links)
+
+
+const container = ref(null)
+const columnCount = ref(4)
+const resizeListener = () =>
+    columnCount.value = (container.value.clientWidth < 800) ? 2 : 4
+onMounted(() =>
+    window.addEventListener('resize', resizeListener))
+onBeforeUnmount(() =>
+    window.removeEventListener('resize', resizeListener))
 </script>
 
 

@@ -22,7 +22,8 @@
 
 
 <script setup>
-import { reactive, onMounted, onBeforeUnmount } from 'vue'
+import { reactive, watch } from 'vue'
+
 
 const props = defineProps({
   columnCount: {
@@ -35,40 +36,20 @@ const props = defineProps({
   }
 })
 
-
 let indicesByCol = reactive({ value: [] })
-let colCount = props.columnCount
-
-const calcColCount = () =>
-    (window?.innerWidth < 700) ? 2 : props.columnCount
-
 const redraw = () => {
-
   indicesByCol.value =
-      Array.from({ length: colCount },
+      Array.from({ length: props.columnCount },
           () => reactive({ value: [] }))
 
   props.items.forEach((_, itemIndex) =>
-      indicesByCol.value[itemIndex % colCount]
+      indicesByCol.value[itemIndex % props.columnCount]
           .value.push(itemIndex))
-
 }
 
-const resizeListener = () => {
-  const newColCount = calcColCount()
-  if (colCount !== newColCount) {
-    colCount = newColCount
-    redraw()
-  }
-}
+watch(() => props.columnCount, redraw)
 
-onMounted(() => {
-  window.addEventListener('resize', resizeListener)
-  redraw()
-})
-
-onBeforeUnmount(() =>
-    window.removeEventListener('resize', resizeListener))
+redraw()
 </script>
 
 
