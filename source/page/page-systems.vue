@@ -24,7 +24,8 @@
 
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed } from 'vue'
+import { onMounted, onUpdated, onBeforeUnmount } from 'vue'
 import { useRoute } from 'vue-router'
 
 import RegionNavbar from 'component/region-navbar/region-navbar.vue'
@@ -57,9 +58,15 @@ const links = computed(() =>
 const container = ref(null)
 const columnCount = ref(4)
 const resizeListener = () =>
-    columnCount.value = (container.value.clientWidth < 800) ? 2 : 4
-onMounted(() =>
-    window.addEventListener('resize', resizeListener))
+    columnCount.value =
+        (container.value.clientWidth >= 1050) ? 4 :
+        (container.value.clientWidth >= 700)  ? 3 : 2
+
+onMounted(() => {
+  window.addEventListener('resize', resizeListener)
+  resizeListener()
+})
+onUpdated(resizeListener)
 onBeforeUnmount(() =>
     window.removeEventListener('resize', resizeListener))
 </script>

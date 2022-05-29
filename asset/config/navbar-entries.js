@@ -14,17 +14,15 @@ export default [
 
   {
     name: 'forms',
-    icon: 'fa-solid fa-table',
+    icon: 'fa-solid fa-paste',
     label: 'Формы',
     sublinks: [
       {
         path: '/north-west/forms/3ltp',
-        icon: 'fa-solid fa-caret-right',
         label: 'Оформление выезда'
       },
       {
         path: '/clem',
-        icon: 'fa-solid fa-caret-right',
         label: 'Передать ПМ'
       }
     ]
@@ -44,7 +42,7 @@ export default [
 
   {
     name: 'contacts',
-    icon: 'fa-solid fa-address-book',
+    icon: 'fa-solid fa-id-badge',
     label: 'Контакты'
   }
   

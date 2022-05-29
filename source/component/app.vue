@@ -3,7 +3,7 @@
 
     <header class="header">
       <suspense>
-        <sqm-navbar/>
+        <top-navbar/>
       </suspense>
     </header>
 
@@ -25,8 +25,8 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
-import SqmNavbar from './navbar/sqm-navbar.vue'
-import SqmFooter from './sqm-footer.vue'
+import TopNavbar from 'component/top-navbar/top-navbar.vue'
+import SqmFooter from 'component/sqm-footer.vue'
 
 
 const path = computed(() => useRoute().path)
@@ -53,16 +53,14 @@ body {
 }
 
 .header {
+  width: 100%;
   z-index: 1;
-  position: sticky;
+  position: fixed;
   top: 0;
-
-  background-color: colors.$header-bg;
-  color: colors.$header-fg;
 }
 
 .main {
-  padding-top: 20px;
+  padding-top: 40px;
   min-height: 100vh;
 }
 

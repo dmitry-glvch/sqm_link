@@ -54,7 +54,8 @@ export default (env, args) => ({
 
     new HtmlPlugin({
       template: 'source/page-template.html',
-      filename: 'index.html'
+      filename: 'index.html',
+      favicon: 'asset/image/favicon.ico'
     }),
 
     new VuePlugin(),
