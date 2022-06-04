@@ -3,9 +3,19 @@
 
     <div class="top-row" @click.self="cardClickListener">
 
-      <a ref="link" class="hlink" :href="path">
+      <a v-if="typeof path === 'string' && isAbsolute(path)"
+          ref="link"
+          class="hlink"
+          :href="path">
         {{ typo(label) }}
       </a>
+
+      <router-link v-else
+          ref="link"
+          class="hlink"
+          :to="path">
+        {{ typo(label) }}
+      </router-link>
 
       <div>
         <a v-if="hasInfo"
@@ -48,6 +58,7 @@
 import { ref, computed, onMounted } from 'vue'
 
 import tippy from 'tippy.js'
+import isAbsolute from 'is-absolute-url'
 
 import SystemLinkDetail from './system-link-detail.vue'
 import normalizeDetails from './normalize-detail.js'
@@ -56,7 +67,9 @@ import typo from 'util/typo.js'
 
 
 const props = defineProps({
-  path: String,
+  path: {
+    required: true
+  },
   label: String,
   hint: String,
   info: String,
