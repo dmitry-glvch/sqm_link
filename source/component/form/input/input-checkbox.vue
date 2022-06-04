@@ -52,6 +52,7 @@ defineExpose({
 .checkbox-label {
   user-select: none;
   display: flex;
+  height: 100%;
   vertical-align: middle;
 }
 
@@ -67,7 +68,7 @@ defineExpose({
 }
 
 .checkbox-caption {
-  display: inline-block;
-  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
 }
 </style>

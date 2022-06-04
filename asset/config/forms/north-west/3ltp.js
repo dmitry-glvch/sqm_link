@@ -1,5 +1,5 @@
 export default {
-  id: '3LTP',
+  title: 'Оформление выезда',
   requisites: [
     {
       id: 'issue_type',
@@ -181,5 +181,17 @@ export default {
 Схема организации связи \${communication_plan}.
 
 { \${visit_purpose} }
-`
+`,
+  layout: `
+    'issue_type              visit_purpose'
+    'performed_diagnostics   performed_diagnostics '
+    'equipment_reboot_status communication_plan'
+    'instructions            instructions'
+    'channel_info            channel_info'
+    'client_contact          visit_time'
+    'admittance_type         _'
+    'electricity_status      quarantine_status'
+    'cable_check_need        infected_presence'
+    '-                       voucher_status'
+  `
 }

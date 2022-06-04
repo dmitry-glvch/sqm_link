@@ -18,12 +18,12 @@ export default [
     label: 'Формы',
     sublinks: [
       {
-        path: '/north-west/forms/3ltp',
-        label: 'Оформление выезда'
+        path: '/north-west/forms/sqm-closing',
+        label: 'Закрытие SQM заявки'
       },
       {
-        path: '/clem',
-        label: 'Передать ПМ'
+        path: '/north-west/forms/3ltp',
+        label: 'Оформление выезда'
       }
     ]
   },

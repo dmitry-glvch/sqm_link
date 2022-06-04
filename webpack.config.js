@@ -72,7 +72,8 @@ export default (env, args) => ({
 
     ...replacements(env.branch)([
       'systems',
-      'configurator'
+      'configurator',
+      'forms'
     ]),
 
     new FileManagerPlugin ({

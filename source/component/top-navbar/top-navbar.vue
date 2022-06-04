@@ -32,10 +32,10 @@
           </navbar-item>
         </li>
 
-        <li>
+        <li v-if="config.branchNavigation">
           <navbar-item
               icon="fa-solid fa-earth-americas"
-              :label="branches[currentBranch].title">
+              :label="branches[currentBranch]?.title">
             <ul class="dropdown-list">
 
               <li v-for="link in branchesDropdownLinks">
@@ -62,6 +62,7 @@ import { ref, computed } from 'vue'
 import { onMounted, onBeforeUnmount, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
+import config from 'source/config.js'
 import navbarItem from './navbar-item.vue'
 
 import navbarEntries from 'config/navbar-entries.js'

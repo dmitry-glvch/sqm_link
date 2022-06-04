@@ -7,7 +7,7 @@ import PageConfigurator from 'page/page-configurator.vue'
 import PageInstructions from 'page/page-instructions.vue'
 import PageContacts from 'page/page-contacts.vue'
 import PageForms from 'page/page-forms.vue'
-import PageForm3ltp from 'page/forms/page-3ltp.vue'
+import SqmForm from 'component/form/sqm-form.vue'
 
 import config from 'source/config.js'
 
@@ -74,12 +74,13 @@ const routes = [
   },
 
   {
-    path: '/north-west/forms/3ltp',
-    component: PageForm3ltp,
+    path: '/:branch/forms/:form',
+    name: 'form',
+    component: SqmForm,
     meta: {
-      title: 'Оформление выезда'
+      title: 'Формы'
     }
-  },
+  }
 
 ]
 

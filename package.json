@@ -9,7 +9,7 @@
     "serve": "node build.js serve",
     "build:all": "node build.js build --all",
     "build:branches": "node build.js build --branches",
-    "build:super": "node build.js --super",
+    "build:super": "node build.js build --super",
     "build": "node build.js build"
   },
   "dependencies": {
